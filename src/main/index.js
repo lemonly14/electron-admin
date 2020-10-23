@@ -12,7 +12,7 @@ if (process.env.NODE_ENV !== 'development') {
 
 let mainWindow
 const winURL = process.env.NODE_ENV === 'development'
-  ? `http://localhost:9080`
+  ? `http://localhost:8000`
   : `file://${__dirname}/index.html`
 
 function createWindow () {
@@ -20,9 +20,10 @@ function createWindow () {
    * Initial window options
    */
   mainWindow = new BrowserWindow({
-    // height: 563,
-    // useContentSize: true,
-    // width: 1000,
+    height: 563,
+    useContentSize: true,
+    width: 1000,
+    // frame:false,
     webPreferences: {
       nodeIntegration: true
     }

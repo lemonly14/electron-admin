@@ -168,7 +168,8 @@ let rendererConfig = {
 if (process.env.NODE_ENV !== 'production') {
   rendererConfig.plugins.push(
     new webpack.DefinePlugin({
-      '__static': `"${path.join(__dirname, '../static').replace(/\\/g, '\\\\')}"`
+      '__static': `"${path.join(__dirname, '../static').replace(/\\/g, '\\\\')}"`,
+      'process.env.VUE_APP_BASE_API':'"https://www.fastmock.site/mock/d483a865633352519d64c40b65bfedba/vue-electron"'
     })
   )
 }
@@ -189,7 +190,8 @@ if (process.env.NODE_ENV === 'production') {
       }
     ]),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': '"production"'
+      'process.env.NODE_ENV': '"production"',
+      'process.env.VUE_APP_BASE_API':'"https://www.fastmock.site/mock/d483a865633352519d64c40b65bfedba/vue-electron"'
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true

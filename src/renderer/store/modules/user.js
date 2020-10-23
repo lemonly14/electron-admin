@@ -34,6 +34,7 @@ const actions = {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password }).then(response => {
+        console.log('response',response)
         const { data } = response
         commit('SET_TOKEN', data.token)
         setToken(data.token)
@@ -48,8 +49,9 @@ const actions = {
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
       getInfo(state.token).then(response => {
-        const { data } = response
-
+        console.log('获取信息data',response)
+        const  data  = response['admin-token']
+        console.log('获取信息data',data)
         if (!data) {
           reject('Verification failed, please Login again.')
         }
