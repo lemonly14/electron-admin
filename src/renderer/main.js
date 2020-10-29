@@ -10,6 +10,8 @@ import './styles/element-variables.scss'
 
 import '@/styles/index.scss' // global css
 
+import components from './components/map'
+
 import App from './App'
 import store from './store'
 import router from './router'
@@ -32,6 +34,8 @@ import * as filters from './filters' // global filters
 // const { mockXHR } = require('../mock')
 // mockXHR()
 // }
+
+components.map((item) => Vue.component(item.id, item.component))
 
 Vue.use(Element, {
   size: Cookies.get('size') || 'medium' // set element-ui default size

@@ -125,11 +125,9 @@
 </template>
 
 <script>
-import BackToTop from '@/components/BackToTop'
 
 export default {
   name: 'BackToTopDemo',
-  components: { BackToTop },
   data() {
     return {
       // customizable button style, show/hide critical point, return position

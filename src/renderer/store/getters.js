@@ -10,6 +10,10 @@ const getters = {
   introduction: state => state.user.introduction,
   roles: state => state.user.roles,
   permission_routes: state => state.permission.routes,
-  errorLogs: state => state.errorLog.logs
+  errorLogs: state => state.errorLog.logs,
+  componentList:state => state.components.componentList,
+  storeList:state => state.components.storeList,
+  activeComponent:state => state.components.activeComponent,
+  templateList:state => state.components.templateList,
 }
 export default getters
