@@ -40,7 +40,7 @@
         const that = this
         const $img = this.$refs.img
         that.complete()
-        QrCode.toDataURL('http://192.168.11.80:8080/', { errorCorrectionLevel: 'H', type: 'image/jpeg',  color: {} }, (err, res) => {
+        QrCode.toDataURL('芜湖，起飞~', { errorCorrectionLevel: 'H', type: 'image/jpeg',  color: {} }, (err, res) => {
           if (err) {
             throw err
           }

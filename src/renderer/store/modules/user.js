@@ -49,9 +49,7 @@ const actions = {
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
       getInfo(state.token).then(response => {
-        console.log('获取信息data',response)
         const  data  = response['admin-token']
-        console.log('获取信息data',data)
         if (!data) {
           reject('Verification failed, please Login again.')
         }
