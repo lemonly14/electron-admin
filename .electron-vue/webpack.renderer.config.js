@@ -144,6 +144,16 @@ let rendererConfig = {
       process: process
 
     }),
+    // new HtmlWebpackPlugin({
+    //   filename: 'index1.html',
+    //   template: path.resolve(__dirname, '../src/print.html'),
+    //   minify: {
+    //     collapseWhitespace: true,
+    //     removeAttributeQuotes: true,
+    //     removeComments: true
+    //   },
+    //   nodeModules: false
+    // }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
   ],

@@ -331,6 +331,29 @@ const components = {
                     displayValue: displayValue === '1',
                 })
             } catch (e) {
+
+                Notification({
+                    type: 'warning',
+                    title: '更新失败，参数不匹配',
+                    message: e,
+                    duration: 1500,
+                })
+            }
+        },
+        updateBarcodeData({ commit, state }, data) {
+            const current = state.storeList.find((item) => item.id === state.activeComponent.id || '')
+            const { format, lineWidth, bodyHeight, displayValue, fontSize } = current.props
+            try {
+                barcode(`.${current.id}`, data, {
+                    format,
+                    width: lineWidth,
+                    height: bodyHeight,
+                    textMargin: 10,
+                    fontSize,
+                    displayValue: displayValue === '1',
+                })
+            } catch (e) {
+                console.log(e)
                 Notification({
                     type: 'warning',
                     title: '更新失败，参数不匹配',

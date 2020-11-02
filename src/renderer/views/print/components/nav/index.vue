@@ -1,0 +1,168 @@
+<template>
+  <div id="nav-warp">
+    <div class="logo-area">
+      标签打印
+    </div>
+    <div class="handle-area">
+      <!--      <div class="preview-btn" @click="handleTest">Test</div>-->
+      <div
+        class="preview-btn"
+        @click="handleSaveTemplateToImg"
+      >
+        <i class="el-icon-picture-outline"></i>
+        <span>保存为图片</span>
+      </div>
+      <div
+        class="preview-btn"
+        @click="handleShowSaveDialog"
+      >
+        <i class="el-icon-receiving"></i>
+        <span>保存为模板</span>
+      </div>
+      <div
+        class="preview-btn"
+        @click="handleViewTemplate"
+      >
+        <i class="el-icon-reading"></i>
+        <span>打印预览</span>
+      </div>
+      <div
+        class="preview-btn"
+        @click="handleClearCanvas"
+      >
+        <i class="el-icon-magic-stick"></i>
+        <span>清空画布</span>
+      </div>
+    </div>
+    <!-- <save-dialog ref="save" /> -->
+  </div>
+</template>
+
+<script>
+import html2canvas from 'html2canvas'
+import { ipcRenderer } from 'electron'
+//   import saveDialog from './tools/SaveDialog/Index.vue'
+export default {
+  components: {
+    //   saveDialog,
+  },
+  data() {
+    return {
+      imgSrc: '',
+    }
+  },
+  mounted() {
+    //
+  },
+  methods: {
+    convertBase64UrlToBlob(urlData) {
+      const bytes = window.atob(urlData.split(',')[1])
+      const ab = new ArrayBuffer(bytes.length)
+      const ia = new Uint8Array(ab)
+      for (let i = 0; i < bytes.length; i++) {
+        ia[i] = bytes.charCodeAt(i)
+      }
+      return new Blob([ab], { type: 'image/png' })
+    },
+    handleShowSaveDialog() {
+      this.$refs.save.init()
+    },
+    async handleSaveTemplateToImg() {
+      const $el = document.querySelector('.drag-canvas-warp.board-canvas')
+      const canvas = await html2canvas($el, {
+        allowTaint: true,
+        useCORS: true,
+        backgroundColor: '#fff',
+        width: $el.offsetWidth,
+        height: $el.offsetHeight,
+        dpi: window.devicePixelRatio * 2,
+      })
+      const data = canvas.toDataURL('image/png')
+      const blob = this.convertBase64UrlToBlob(data)
+      const url = window.URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = `商品标签模板_${new Date().getTime()}`
+      a.click()
+      window.URL.revokeObjectURL(url)
+    },
+    handleViewTemplate() {
+      const $template = document.querySelector('.drag-canvas-warp.board-canvas').innerHTML
+      const html = `<div class="container">${$template}</div>`
+      ipcRenderer.send('print-to-pdf', html)
+      // ipcRenderer.send('print-to-pdf', html)
+      ipcRenderer.on('wrote-pdf', (event, path) => {
+        const message = `PDF保存到：${path}`
+        alert(message)
+      })
+    },
+    handleClearCanvas() {
+      const that = this
+      this.$confirm('此操作将清空画板, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        that.$store.dispatch('components/clearStoreList')
+      }).catch()
+    },
+    handleTest() {
+      // const test = '[{"name":"customText","type":"TextUi","classify":"TextMenu","title":"自定义文本","instance":true,"updateId":"1592381360664","position":{"clientX":0,"clientY":8},"default":{"height":396,"width":458,"x":0,"y":8},"props":{"text":"自定义文本","align":"left","fontFamily":"","fontSize":"","lineHeight":"","isBold":false,"hasBorder":false},"id":"kbj2qn8n"},{"name":"barCode","type":"BarcodeUi","classify":"BarcodeMenu","instance":true,"title":"条形码","updateId":"1592381360466","position":{"clientX":140,"clientY":185.75},"default":{"height":175.390625,"width":115.984375,"x":140,"y":185.75},"props":{"format":"CODE128","lineWidth":2,"bodyHeight":40,"fontSize":14,"displayValue":"1","data":"123456789"},"id":"kbj2qq3d"}]'
+      // console.log(JSON.parse(test))
+      // this.$store.dispatch('components/updateStoreList', JSON.parse(test))
+    },
+  },
+}
+</script>
+
+<style lang="scss">
+@import "../../../../styles/variables.scss";
+
+#nav-warp {
+  width: 100%;
+  height: 32px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  box-shadow: $shadowBottom;
+  position: relative;
+  justify-content: space-between;
+  z-index: 100;
+
+  .logo-area {
+    color: $skyBlue;
+    font-weight: 500;
+    font-size: 18px;
+  }
+
+  .handle-area {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 10px 0;
+    .preview-btn {
+      font-size: 14px;
+      color: $generalFontColor;
+      cursor: pointer;
+      margin-right: 15px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      padding-right: 15px;
+      border-right: 1px solid $border;
+      &:last-of-type {
+        margin-right: 0;
+      }
+      &:hover {
+        text-decoration: underline;
+        color: $skyBlue;
+      }
+
+      i {
+        margin-right: 5px;
+      }
+    }
+  }
+}
+</style>

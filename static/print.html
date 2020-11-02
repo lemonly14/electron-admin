@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+  <title>Document</title>
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: auto;
+      background-color: #000;
+      position: relative;
+      height: 100vh;
+    }
+
+    .container {
+      box-sizing: border-box;
+      width: 460px;
+      height: 460px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: white;
+    }
+
+    .text-component .detail {
+      display: inline-block;
+      font-weight: normal;
+      word-break: break-all;
+      word-wrap: break-word;
+      border: 1px solid transparent;
+    }
+
+    .container .item {
+      display: none;
+    }
+
+    .container .drag-warp {
+      position: absolute;
+    }
+  </style>
+</head>
+
+<body id="bd">
+  <!-- <div>1111111111111111</div> -->
+</body>
+
+<script>
+  const { ipcRenderer } = require('electron')
+  // console.log('我这次进来了',ipcRenderer);
+  // ipcRenderer.on('webcontent-print-render', (event, info) => {
+  //   console.log('没有东西嘛');
+  //   // 执行渲染
+  //   console.log('info',info);
+  //   document.getElementById('bd').innerHTML = info.html
+  //   // ipcRenderer.sendToHost('webview-print-do')
+  // })
+
+  new Vue({
+    el: "#app",
+    data: {
+      arr: []
+    },
+    mounted() {
+      console.log('????没有东西？？？', ipcRenderer)
+      ipcRenderer.on('webcontent-print-render', (e, info) => { //接收响应
+        console.log('info', info.html);
+        document.getElementById('bd').innerHTML = info.html
+        ipcRenderer.send('webcontent-print-do', info.html)
+      })
+    },
+    methods: {}
+  })
+</script>
+
+</html>

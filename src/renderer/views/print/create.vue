@@ -1,5 +1,6 @@
 <template>
   <div class="app-warp">
+    <header-nav />
     <div class="body-area">
       <left-menu class="left-menu" />
       <board class="view-box" />
@@ -12,9 +13,11 @@
 import LeftMenu from './components/leftMenu'
 import RightMenu from './components/rightMenu'
 import Board from './components/board'
+import HeaderNav from './components/nav'
 import { on, off } from '@/utils/dom.js'
 export default {
   components: {
+    HeaderNav,
     LeftMenu,
     RightMenu,
     Board

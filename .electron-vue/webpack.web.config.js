@@ -104,6 +104,16 @@ let webConfig = {
       },
       nodeModules: false
     }),
+    // new HtmlWebpackPlugin({
+    //   filename: 'index1.html',
+    //   template: path.resolve(__dirname, '../src/print.html'),
+    //   minify: {
+    //     collapseWhitespace: true,
+    //     removeAttributeQuotes: true,
+    //     removeComments: true
+    //   },
+    //   nodeModules: false
+    // }),
     new webpack.DefinePlugin({
       'process.env.IS_WEB': 'true'
     }),

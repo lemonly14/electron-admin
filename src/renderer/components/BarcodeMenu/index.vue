@@ -2,6 +2,9 @@
   <el-form class="barcode-menu-warp" :model="form" label-position="top">
     <el-tabs v-model="tab" type="border-card">
       <el-tab-pane label="内容" name="content">
+        <el-form-item label="条形码信息">
+          <el-input v-model="currentComponent.props.data" class="w-100" size="small" @input="handleUpdateBarcodeData(currentComponent.props.data)"></el-input>
+        </el-form-item>
         <el-form-item label="条形码格式">
           <el-select v-model="currentComponent.props.format" class="w-100" size="small" filterable @change="debounceUpdate">
             <el-option v-for="item in formatOptions" :key="item.value" :value="item.value" :label="item.label" />
@@ -40,6 +43,7 @@
         form: {
         },
         debounceUpdate: Function,
+        debounceUpdateData: Function,
         formatOptions: [
           {
             label: 'CODE128',
@@ -113,6 +117,7 @@
     },
     mounted() {
       this.debounceUpdate = debounce(300, this.handleUpdateBarcode)
+      this.debounceUpdateData = debounce(300, this.handleUpdateBarcodeData)
     },
     methods: {
       init() {
@@ -121,6 +126,9 @@
       handleUpdateBarcode() {
         this.$store.dispatch('components/updateBarcode')
       },
+      handleUpdateBarcodeData(data){
+        this.$store.dispatch('components/updateBarcodeData',data)
+      }
     },
   }
 </script>

@@ -67,6 +67,4 @@ export default [
         id: 'RectangleMenu',
         component: RectangleMenu,
     },
-
-
 ]
