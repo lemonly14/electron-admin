@@ -1,8 +1,8 @@
 'use strict'
 
-import { app, BrowserWindow, ipcMain, shell, electronHelper } from 'electron'
+import { app, BrowserWindow, ipcMain } from 'electron'
 const fs = require('fs')
-const os = require('os')
+//  const os = require('os')
 const path = require('path')
 
 // 主进程
@@ -37,6 +37,7 @@ function initPrintEvent(printWindow, mainWindow, arg) {
     // let currentWin = BrowserWindow.getFocusedWindow()()
     const data = await currentWin.webContents.printToPDF({})
 
+    // eslint-disable-next-line no-undef
     const filePath = path.join(__static, 'allen.pdf')
     console.log('filePath', filePath)
     fs.writeFile(filePath, data, error => {
