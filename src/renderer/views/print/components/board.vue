@@ -7,21 +7,21 @@
 </template>
 
 <script>
-  import DragCanvas from '@/components/DragCanvas/Index.vue'
+import DragCanvas from '@/components/DragCanvas/Index.vue'
 //   import { ToolsDrawer } from '@/public'
-  export default {
-    components: {
-      DragCanvas,
+export default {
+  components: {
+    DragCanvas
     //   ToolsDrawer,
-    },
-    props: {
-      //
-    },
-    data() {
-      return {
-      }
-    },
+  },
+  props: {
+    //
+  },
+  data() {
+    return {
+    }
   }
+}
 </script>
 
 <style lang="scss">

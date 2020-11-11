@@ -16,7 +16,7 @@ function createPrintWindow(arg) {
     width: 600,
     height: 600,
     webPreferences: {
-      nodeIntegration: true,
+      nodeIntegration: true
     }
   })
 
@@ -25,22 +25,19 @@ function createPrintWindow(arg) {
   setTimeout(() => {
     initPrintEvent(printWindow, mainWindow, arg)
   }, 1000)
-
-
 }
 
 // 初始化打印机
 
 function initPrintEvent(printWindow, mainWindow, arg) {
-  printWindow.webContents.send("webcontent-print-render", { html: arg })
-  ipcMain.on('webcontent-print-do', async (event, arg) => {
-
-    let currentWin = BrowserWindow.fromWebContents(event.sender)
+  printWindow.webContents.send('webcontent-print-render', { html: arg })
+  ipcMain.on('webcontent-print-do', async(event, arg) => {
+    const currentWin = BrowserWindow.fromWebContents(event.sender)
     console.log('进来了吗', currentWin.webContents)
     // let currentWin = BrowserWindow.getFocusedWindow()()
-    let data = await currentWin.webContents.printToPDF({})
+    const data = await currentWin.webContents.printToPDF({})
 
-    let filePath = path.join(__static, "allen.pdf")
+    const filePath = path.join(__static, 'allen.pdf')
     console.log('filePath', filePath)
     fs.writeFile(filePath, data, error => {
       if (error) throw error
@@ -50,9 +47,9 @@ function initPrintEvent(printWindow, mainWindow, arg) {
       silent: false,
       printBackground: false,
       deviceName: ''
-    },(data) => {
-        console.log("回调", data)
-      })
+    }, (data) => {
+      console.log('回调', data)
+    })
   })
   // mainWindow.webContents.send("webcontent-print-render",  {html:arg})
   ipcMain.on('print-start', (event, obj) => {
@@ -77,9 +74,9 @@ function initPrintEvent(printWindow, mainWindow, arg) {
           printBackground: false,
           deviceName: ''
         },
-          (data) => {
-            console.log("回调", data)
-          })
+        (data) => {
+          console.log('回调', data)
+        })
       } else if (element.name === deviceName && !element.status) { // 打印机正常
         console.log(element.status + '-' + deviceName)
         printWindow.webContents.print({
@@ -99,17 +96,10 @@ function initPrintEvent(printWindow, mainWindow, arg) {
         })
       }
     })
-
   })
 }
 
-
-
-
-
-
 ipcMain.on('print-to-pdf', (event, arg) => {
-
   createPrintWindow(arg)
   //   // const pdfPath = path.join(os.tmpdir(), 'print.pdf')
   //   console.log('我到了print-to-pdf', arg)
@@ -138,8 +128,6 @@ ipcMain.on('print-to-pdf', (event, arg) => {
   //   })
   // })
 })
-
-
 
 /**
  * Set `__static` path to static files in production

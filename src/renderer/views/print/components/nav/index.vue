@@ -9,28 +9,28 @@
         class="preview-btn"
         @click="handleSaveTemplateToImg"
       >
-        <i class="el-icon-picture-outline"></i>
+        <i class="el-icon-picture-outline" />
         <span>保存为图片</span>
       </div>
       <div
         class="preview-btn"
         @click="handleShowSaveDialog"
       >
-        <i class="el-icon-receiving"></i>
+        <i class="el-icon-receiving" />
         <span>保存为模板</span>
       </div>
       <div
         class="preview-btn"
         @click="handleViewTemplate"
       >
-        <i class="el-icon-reading"></i>
+        <i class="el-icon-reading" />
         <span>打印预览</span>
       </div>
       <div
         class="preview-btn"
         @click="handleClearCanvas"
       >
-        <i class="el-icon-magic-stick"></i>
+        <i class="el-icon-magic-stick" />
         <span>清空画布</span>
       </div>
     </div>
@@ -48,7 +48,7 @@ export default {
   },
   data() {
     return {
-      imgSrc: '',
+      imgSrc: ''
     }
   },
   mounted() {
@@ -75,7 +75,7 @@ export default {
         backgroundColor: '#fff',
         width: $el.offsetWidth,
         height: $el.offsetHeight,
-        dpi: window.devicePixelRatio * 2,
+        dpi: window.devicePixelRatio * 2
       })
       const data = canvas.toDataURL('image/png')
       const blob = this.convertBase64UrlToBlob(data)
@@ -101,7 +101,7 @@ export default {
       this.$confirm('此操作将清空画板, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        type: 'warning',
+        type: 'warning'
       }).then(() => {
         that.$store.dispatch('components/clearStoreList')
       }).catch()
@@ -110,8 +110,8 @@ export default {
       // const test = '[{"name":"customText","type":"TextUi","classify":"TextMenu","title":"自定义文本","instance":true,"updateId":"1592381360664","position":{"clientX":0,"clientY":8},"default":{"height":396,"width":458,"x":0,"y":8},"props":{"text":"自定义文本","align":"left","fontFamily":"","fontSize":"","lineHeight":"","isBold":false,"hasBorder":false},"id":"kbj2qn8n"},{"name":"barCode","type":"BarcodeUi","classify":"BarcodeMenu","instance":true,"title":"条形码","updateId":"1592381360466","position":{"clientX":140,"clientY":185.75},"default":{"height":175.390625,"width":115.984375,"x":140,"y":185.75},"props":{"format":"CODE128","lineWidth":2,"bodyHeight":40,"fontSize":14,"displayValue":"1","data":"123456789"},"id":"kbj2qq3d"}]'
       // console.log(JSON.parse(test))
       // this.$store.dispatch('components/updateStoreList', JSON.parse(test))
-    },
-  },
+    }
+  }
 }
 </script>
 

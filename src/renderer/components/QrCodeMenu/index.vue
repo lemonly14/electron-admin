@@ -1,20 +1,19 @@
 <template>
-  <div class="qr-code-menu-warp">
-  </div>
+  <div class="qr-code-menu-warp" />
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-      }
-    },
-    methods: {
-      init() {
-        //
-      },
-    },
+export default {
+  data() {
+    return {
+    }
+  },
+  methods: {
+    init() {
+      //
+    }
   }
+}
 </script>
 
 <style lang="scss">

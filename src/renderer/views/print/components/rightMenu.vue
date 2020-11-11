@@ -1,36 +1,42 @@
 <template>
-  <div v-if="activeComponent" class="props-menu-warp" @click.stop>
+  <div
+    v-if="activeComponent"
+    class="props-menu-warp"
+    @click.stop>
     <div class="title-area">{{ activeComponent.title }}</div>
-    <component :is="activeComponent.classify" ref="menu" :component="activeComponent" />
+    <component
+      :is="activeComponent.classify"
+      ref="menu"
+      :component="activeComponent" />
   </div>
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
-  export default {
-    data() {
-      return {
-      }
-    },
-    computed: {
-      ...mapGetters(['activeComponent', 'storeList']),
-      currentComponent() {
-        return this.storeList.find((item) => item.id === this.activeComponent)
-      },
-    },
-    watch: {
-      currentComponent() {
-        this.$nextTick(() => {
-          const $menu = this.$refs.menu
-          if ($menu) {
-            $menu.init()
-          }
-        })
-      },
-    },
-    methods: {
-    },
+import { mapGetters } from 'vuex'
+export default {
+  data() {
+    return {
+    }
+  },
+  computed: {
+    ...mapGetters(['activeComponent', 'storeList']),
+    currentComponent() {
+      return this.storeList.find((item) => item.id === this.activeComponent)
+    }
+  },
+  watch: {
+    currentComponent() {
+      this.$nextTick(() => {
+        const $menu = this.$refs.menu
+        if ($menu) {
+          $menu.init()
+        }
+      })
+    }
+  },
+  methods: {
   }
+}
 </script>
 
 <style lang="scss">

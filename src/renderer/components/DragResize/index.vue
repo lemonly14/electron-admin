@@ -1,96 +1,109 @@
 <template>
-  <div :class="resizeClass" class="resize-area" :style="resizeStyle">
-    <svg-icon v-if="!isLine" icon-class="dragBlock" :style="iconStyle" @click.stop @mousedown="handleResizeDown" />
+  <div
+    :class="resizeClass"
+    class="resize-area"
+    :style="resizeStyle">
+    <svg-icon
+      v-if="!isLine"
+      icon-class="dragBlock"
+      :style="iconStyle"
+      @click.stop
+      @mousedown="handleResizeDown" />
     <!-- <i  class="iconfont icontuozhuaidaxiao"  /> -->
 
-    <div v-else class="resize-bar" :style="barStyle" @click.stop @mousedown="handleResizeDown" />
+    <div
+      v-else
+      class="resize-bar"
+      :style="barStyle"
+      @click.stop
+      @mousedown="handleResizeDown" />
   </div>
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
-  export default {
-    props: {
-      componentObject: {
-        type: Object,
-        default() {
-          return {}
-        },
-      },
-    },
-    data() {
-      return {
+import { mapGetters } from 'vuex'
+export default {
+  props: {
+    componentObject: {
+      type: Object,
+      default() {
+        return {}
+      }
+    }
+  },
+  data() {
+    return {
+    }
+  },
+  computed: {
+    // eslint-disable-next-line vue/return-in-computed-property
+    resizeStyle() {
+      const style = {}
+      const { isYLine, currentComponent } = this
+      if (isYLine) {
+        style.width = `${currentComponent.props.height}px`
       }
     },
-    computed: {
-      // eslint-disable-next-line vue/return-in-computed-property
-      resizeStyle() {
-        const style = {}
-        const { isYLine, currentComponent } = this
-        if (isYLine) {
-          style.width = `${currentComponent.props.height}px`
-        }
-      },
-      ...mapGetters(['activeComponent', 'storeList']),
-      currentComponent() {
-        const { id = '' } = this.activeComponent
-        return this.storeList.find((item) => item.id === id)
-      },
-      cursorType() {
-        const type = {
-          'XLineUi': 'col-resize',
-          'YLineUi': 'row-resize',
-        }
-        return type[this.componentObject.type]
-      },
-      isLine() {
-        return this.componentObject.type === 'XLineUi' || this.componentObject.type === 'YLineUi'
-      },
-      isYLine() {
-        return this.componentObject.type === 'YLineUi'
-      },
-      iconStyle() {
-        const { isLine } = this
-        return {
-          cursor: isLine ? this.cursorType : 'se-resize',
-        }
-      },
-      barStyle() {
-        const { isLine, isYLine, currentComponent } = this
-        const style = {
-          cursor: isLine ? this.cursorType : 'se-resize',
-          width: this.resizeDisabledX ? '100%' : '16px',
-          height: this.resizeDisabledY ? '100%' : '16px',
-        }
-        if (this.resizeDisabledX) {
-          style.bottom = 0
-          style.left = 0
-        }
-        if (this.resizeDisabledY) {
-          style.top = 0
-          style.right = 0
-        }
-        if (isYLine) {
-          style.width = `${currentComponent.props.width}px`
-        }
-        return style
-      },
-      resizeDisabledY() {
-        return this.componentObject.type === 'XLineUi'
-      },
-      resizeDisabledX() {
-        return this.componentObject.type === 'YLineUi'
-      },
-      resizeClass() {
-        return this.isLine ? '' : 'resize-btn'
-      },
+    ...mapGetters(['activeComponent', 'storeList']),
+    currentComponent() {
+      const { id = '' } = this.activeComponent
+      return this.storeList.find((item) => item.id === id)
     },
-    methods: {
-      handleResizeDown(e) {
-        this.$emit('resize-down', e)
-      },
+    cursorType() {
+      const type = {
+        'XLineUi': 'col-resize',
+        'YLineUi': 'row-resize'
+      }
+      return type[this.componentObject.type]
     },
+    isLine() {
+      return this.componentObject.type === 'XLineUi' || this.componentObject.type === 'YLineUi'
+    },
+    isYLine() {
+      return this.componentObject.type === 'YLineUi'
+    },
+    iconStyle() {
+      const { isLine } = this
+      return {
+        cursor: isLine ? this.cursorType : 'se-resize'
+      }
+    },
+    barStyle() {
+      const { isLine, isYLine, currentComponent } = this
+      const style = {
+        cursor: isLine ? this.cursorType : 'se-resize',
+        width: this.resizeDisabledX ? '100%' : '16px',
+        height: this.resizeDisabledY ? '100%' : '16px'
+      }
+      if (this.resizeDisabledX) {
+        style.bottom = 0
+        style.left = 0
+      }
+      if (this.resizeDisabledY) {
+        style.top = 0
+        style.right = 0
+      }
+      if (isYLine) {
+        style.width = `${currentComponent.props.width}px`
+      }
+      return style
+    },
+    resizeDisabledY() {
+      return this.componentObject.type === 'XLineUi'
+    },
+    resizeDisabledX() {
+      return this.componentObject.type === 'YLineUi'
+    },
+    resizeClass() {
+      return this.isLine ? '' : 'resize-btn'
+    }
+  },
+  methods: {
+    handleResizeDown(e) {
+      this.$emit('resize-down', e)
+    }
   }
+}
 </script>
 
 <style lang="scss">

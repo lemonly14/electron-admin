@@ -42,8 +42,8 @@ export default {
     },
     handleCancelCurrent() {
       this.$store.dispatch('components/setActive', '')
-    },
-  },
+    }
+  }
 }
 </script>
 

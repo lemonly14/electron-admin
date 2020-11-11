@@ -1,10 +1,24 @@
 <template>
   <div class="component-menu-warp">
-    <el-collapse v-model="menu" class="collapse-menu">
-      <el-collapse-item v-for="(item, index) in componentList" :key="index" :title="item.title" :name="item.title">
+    <el-collapse
+      v-model="menu"
+      class="collapse-menu">
+      <el-collapse-item
+        v-for="(item, index) in componentList"
+        :key="index"
+        :title="item.title"
+        :name="item.title">
         <template v-if="item.list && item.list.length > 0">
-          <draggable class="component-list" v-bind="dragOptions" :component-data="getComponentData" @end="onEnd">
-            <div v-for="(tag) in item.list" :key="tag.id" class="item" :data-component-id="tag.id">
+          <draggable
+            class="component-list"
+            v-bind="dragOptions"
+            :component-data="getComponentData"
+            @end="onEnd">
+            <div
+              v-for="(tag) in item.list"
+              :key="tag.id"
+              class="item"
+              :data-component-id="tag.id">
               <span class="name">{{ tag.title }}</span><svg-icon :icon-class="tag.icon" />
             </div>
           </draggable>
@@ -15,48 +29,48 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
-  import draggable from 'vuedraggable'
-  export default {
-    components: {
-      draggable,
-    },
-    data() {
+import { mapGetters } from 'vuex'
+import draggable from 'vuedraggable'
+export default {
+  components: {
+    draggable
+  },
+  data() {
+    return {
+      menu: ['地址信息', '商品标签信息', '构图元素']
+    }
+  },
+  computed: {
+    ...mapGetters(['componentList']),
+    dragOptions() {
       return {
-        menu: ['地址信息', '商品标签信息', '构图元素'],
+        sort: false,
+        group: {
+          name: 'component',
+          pull: 'clone',
+          put: false
+        }
       }
     },
-    computed: {
-      ...mapGetters(['componentList']),
-      dragOptions() {
-        return  {
-          sort: false,
-          group: {
-            name: 'component',
-            pull: 'clone',
-            put: false,
-          },
-        }
-      },
-      getComponentData() {
-        return {
-          // on: {
-          //   change(a, b, c) {
-          //   },
-          //   input(a, b, c) {
-          //   }
-          // },
-          // attr: {},
-          // value: '',
-        }
-      },
-    },
-    methods: {
-      onEnd(evt) {
-        // doing
-      },
-    },
+    getComponentData() {
+      return {
+        // on: {
+        //   change(a, b, c) {
+        //   },
+        //   input(a, b, c) {
+        //   }
+        // },
+        // attr: {},
+        // value: '',
+      }
+    }
+  },
+  methods: {
+    onEnd(evt) {
+      // doing
+    }
   }
+}
 </script>
 
 <style lang="scss">

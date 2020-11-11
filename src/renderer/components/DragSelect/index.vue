@@ -1,5 +1,11 @@
 <template>
-  <el-select ref="dragSelect" v-model="selectVal" v-bind="$attrs" class="drag-select" multiple v-on="$listeners">
+  <el-select
+    ref="dragSelect"
+    v-model="selectVal"
+    v-bind="$attrs"
+    class="drag-select"
+    multiple
+    v-on="$listeners">
     <slot />
   </el-select>
 </template>

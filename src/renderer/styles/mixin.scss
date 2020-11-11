@@ -64,3 +64,26 @@
     border-bottom: $transparent-border-style;
   }
 }
+
+//弹窗装饰
+@mixin small-thing {
+  width: 50px;
+  height: 5px;
+  background: #0096ff;
+  margin: 0 auto 35px;
+}
+
+//弹窗标题
+@mixin dialog-tittle {
+  text-align: center;
+  .tittle-word {
+    font-size: 30px;
+    font-weight: 400;
+    color: #0096ff;
+    line-height: 0;
+  }
+}
+
+@mixin normal-dialog {
+  width: 40%;
+}

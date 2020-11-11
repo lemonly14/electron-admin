@@ -28,9 +28,6 @@ export { default as ThemePicker } from './ThemePicker'
 export { default as Tinymce } from './Tinymce'
 export { default as UploadExcel } from './UploadExcel'
 
-
-
-
 export { default as TextUi } from './Text'
 export { default as BarcodeUi } from './Barcode'
 export { default as QrCodeUi } from './QrCode'
@@ -42,3 +39,4 @@ export { default as BarcodeMenu } from './BarcodeMenu'
 export { default as QrCodeMenu } from './QrCodeMenu'
 export { default as LineMenu } from './LineMenu'
 export { default as RectangleMenu } from './RectangleMenu'
+export { default as Merge } from './Merge'

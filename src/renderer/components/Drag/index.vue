@@ -35,34 +35,34 @@ export default {
       type: Object,
       default() {
         return {}
-      },
+      }
     },
     isInstance: {
       type: Boolean,
-      default: false,
+      default: false
     },
     aimId: {
       type: String,
-      default: '',
+      default: ''
     },
     defaultX: {
       type: Number,
-      default: 0,
+      default: 0
     },
     defaultY: {
       type: Number,
-      default: 0,
+      default: 0
     },
     updateId: {
       type: String,
-      default: '',
+      default: ''
     },
     default: {
       type: Object,
       default() {
         return {}
-      },
-    },
+      }
+    }
   },
   computed: {
     ...mapGetters(['activeComponent']),
@@ -74,7 +74,7 @@ export default {
         top: `${y}px`,
         left: `${x}px`,
         padding: isLine ? '0' : '0 10px 0 0',
-        overflow: isLine ? 'unset' : 'hidden',
+        overflow: isLine ? 'unset' : 'hidden'
       }
     },
     activeClass() {
@@ -102,7 +102,7 @@ export default {
     },
     resizeVisible() {
       return this.activeClass.includes('is-active')
-    },
+    }
   },
   // eslint-disable-next-line vue/order-in-components
   data() {
@@ -125,7 +125,7 @@ export default {
       defaultHeight: '',
       width: '',
       height: '',
-      debounceUpdateComponent: Function,
+      debounceUpdateComponent: Function
     }
   },
   destroyed() {
@@ -231,8 +231,8 @@ export default {
           height: this.height || 0,
           position: {
             clientX: x,
-            clientY: y,
-          },
+            clientY: y
+          }
         }
         this.$emit('move-end', dragData)
       })
@@ -289,8 +289,8 @@ export default {
       on(document, 'mousemove', this.handleResizeMove)
       on(document, 'mouseup', this.handleResizeUp)
       e.stopPropagation()
-    },
-  },
+    }
+  }
 }
 </script>
 
