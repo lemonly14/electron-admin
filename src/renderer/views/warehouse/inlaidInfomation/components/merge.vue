@@ -1,8 +1,8 @@
 <!--  -->
 <template>
-  <div class="pure-gold-merge-container">
+  <div class="inlaid-merge-container">
     <div class="merge-header">
-      <span>素金类入库</span>
+      <span>镶嵌类入库</span>
       <el-button type="primary"
                  class="back-btn"
                  @click="goBack">返回</el-button>
@@ -18,29 +18,67 @@
             <el-button style="float: right; padding: 3px 0"
                        type="text">操作按钮</el-button>
           </div>
-          <el-form-item v-for="item in basicGather"
-                        :key="item.prop"
-                        :label="item.label"
-                        :prop="item.prop">
-            <el-input v-if="item.type === 'input'"
-                      v-model="pureGoldFrom[item.prop]"
-                      :placeholder="item.placeholder" />
-            <el-select v-if="item.type === 'select'"
-                       v-model="pureGoldFrom[item.prop]"
-                       filterable
-                       placeholder="请选择">
-              <el-option
-                v-for="option in optionsMap[item.options]"
-                :key="option.value"
-                :label="option.label"
-                :value="option.value" />
-            </el-select>
+          <el-form-item label="编码:"
+                        prop="id">
+            <el-input v-model="pureGoldFrom.id" />
+          </el-form-item>
+          <el-form-item label="编码:"
+                        prop="id">
+            <el-input v-model="pureGoldFrom.id" />
+          </el-form-item>
+          <el-form-item label="编码:"
+                        prop="id">
+            <el-input v-model="pureGoldFrom.id" />
+          </el-form-item>
+          <el-form-item label="编码:"
+                        prop="id">
+            <el-input v-model="pureGoldFrom.id" />
+          </el-form-item>
+          <el-form-item label="编码:"
+                        prop="id">
+            <el-input v-model="pureGoldFrom.id" />
+          </el-form-item>
+          <el-form-item label="编====码:"
+                        prop="id">
+            <el-input v-model="pureGoldFrom.id" />
+          </el-form-item>
+          <el-form-item label="编码:"
+                        prop="id">
+            <el-input v-model="pureGoldFrom.id" />
+          </el-form-item>
+          <el-form-item label="编码:"
+                        prop="id">
+            <el-input v-model="pureGoldFrom.id" />
+          </el-form-item>
+          <el-form-item label="编码:"
+                        prop="id">
+            <el-input v-model="pureGoldFrom.id" />
+          </el-form-item>
+          <el-form-item label="编码:"
+                        prop="id">
+            <el-input v-model="pureGoldFrom.id" />
+          </el-form-item>
+          <el-form-item label="编码:"
+                        prop="id">
+            <el-input v-model="pureGoldFrom.id" />
+          </el-form-item>
+          <el-form-item label="编====码:"
+                        prop="id">
+            <el-input v-model="pureGoldFrom.id" />
+          </el-form-item>
+          <el-form-item label="编码:"
+                        prop="id">
+            <el-input v-model="pureGoldFrom.id" />
+          </el-form-item>
+          <el-form-item label="编====码:"
+                        prop="id">
+            <el-input v-model="pureGoldFrom.id" />
           </el-form-item>
         </el-card>
         <el-card class="box-card">
           <div slot="header"
                class="clearfix">
-            <span>基础信息</span>
+            <span>金价信息</span>
             <el-button style="float: right; padding: 3px 0"
                        type="text">操作按钮</el-button>
           </div>
@@ -85,7 +123,38 @@
             </el-form-item>
           </div>
         </el-card>
-
+        <el-card class="box-card">
+          <div slot="header"
+               class="clearfix">
+            <span>基础信息</span>
+            <el-button style="float: right; padding: 3px 0"
+                       type="text">操作按钮</el-button>
+          </div>
+          <el-form-item label="编码:"
+                        prop="id">
+            <el-input v-model="pureGoldFrom.id" />
+          </el-form-item>
+          <el-form-item label="编码:"
+                        prop="id">
+            <el-input v-model="pureGoldFrom.id" />
+          </el-form-item>
+          <el-form-item label="编码:"
+                        prop="id">
+            <el-input v-model="pureGoldFrom.id" />
+          </el-form-item>
+          <el-form-item label="编码:"
+                        prop="id">
+            <el-input v-model="pureGoldFrom.id" />
+          </el-form-item>
+          <el-form-item label="编码:"
+                        prop="id">
+            <el-input v-model="pureGoldFrom.id" />
+          </el-form-item>
+          <el-form-item label="编码:"
+                        prop="id">
+            <el-input v-model="pureGoldFrom.id" />
+          </el-form-item>
+        </el-card>
       </div>
       <div class="right-container">
         <div class="img-container">
@@ -124,10 +193,9 @@
 <script>
 // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 // 例如：import 《组件名称》 from '《组件路径》';
-import { basicGather, units, styles } from '../../data'
+
 export default {
   // import引入的组件需要注入到对象中才能使用
-
   components: {},
   data() {
     // 这里存放数据
@@ -135,9 +203,7 @@ export default {
       dialogImageUrl: '',
       dialogVisible: false,
       pureGoldFrom: {},
-      basicGather: [],
-      units: [],
-      styles: [],
+
       countGather: [
         {
           label: '金总：',
@@ -175,8 +241,7 @@ export default {
           placeholder: ''
         }
       ],
-      rules: {},
-      optionsMap: {}
+      rules: {}
     }
   },
   // 监听属性 类似于data概念
@@ -185,11 +250,7 @@ export default {
   watch: {},
   // 生命周期 - 创建完成（可以访问当前this实例）
   created() {
-    this.basicGather = basicGather
-    this.units = units
-    this.styles = styles
-    this.optionsMap['units'] = units
-    this.optionsMap['styles'] = styles
+
   },
   // 生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {
@@ -288,10 +349,13 @@ export default {
 </style>
 
 <style lang="scss" scoped>
-.pure-gold-merge-container {
+.inlaid-merge-container {
+  height: 100%;
   .el-form{
+    height: 100%;
     display: flex;
     padding: 30px 50px;
+    overflow: auto;
   }
   .el-card{
     margin-bottom: 40px;
