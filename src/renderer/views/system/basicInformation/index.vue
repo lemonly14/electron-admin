@@ -86,11 +86,12 @@
     </div>
     <Merge ref="merge"
            :edit-info="editInfo"
-           :tittle-name="tittleName"
-           @on-clear="clear()" />
+           :tittle-name="tittleName" />
     <Delete ref="delete"
             :length="length"
             :delete-type="deleteType"
+            :tittle-name="tittleName" />
+    <Export ref="export"
             :tittle-name="tittleName" />
   </div>
 </template>
@@ -98,14 +99,15 @@
 <script>
 // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 // 例如：import 《组件名称》 from '《组件路径》';
-import { InfoTree, Merge, Delete } from './components/index'
+import { InfoTree, Merge, Delete, Export } from './components/index'
 import _ from 'lodash'
 export default {
   // import引入的组件需要注入到对象中才能使用
   components: {
     InfoTree,
     Merge,
-    Delete
+    Delete,
+    Export
   },
   data() {
     // 这里存放数据
@@ -188,12 +190,13 @@ export default {
       this.$refs.delete.isShow = true
       this.deleteType = 'batch'
     },
+    exportItems() {
+      this.tittleName = '导出'
+      this.$refs.export.isShow = true
+    },
     handleSelect(selection) {
       console.log('selection', selection)
       this.length = selection.length
-    },
-    clear() {
-      console.log('我到这步了')
     },
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`)
