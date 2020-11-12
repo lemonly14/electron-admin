@@ -19,16 +19,16 @@
 <script>
 export default {
   props: {
-    isShow: {
-      type: Boolean,
-      default: false
-    },
     tittleName: {
       type: String,
       default: ''
     }
   },
-  //   data() { },
+  data() {
+    return {
+      isShow: false
+    }
+  },
   methods: {
     close() {
       this.isShow = false
@@ -49,8 +49,6 @@ export default {
   }
   .dialog-tittle {
     @include dialog-tittle;
-    .tittle-word {
-    }
   }
   .el-dialog__body {
     text-align: inherit;

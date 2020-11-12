@@ -20,10 +20,6 @@
 <script>
 export default {
   props: {
-    isShow: {
-      type: Boolean,
-      default: false
-    },
     tittleName: {
       type: String,
       default: ''
@@ -37,7 +33,11 @@ export default {
       default: ''
     }
   },
-  //   data() { },
+  data() {
+    return {
+      isShow: false
+    }
+  },
   methods: {
     handleDelete() {
       this.$emit('on-delete')

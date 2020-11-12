@@ -5,16 +5,19 @@
       <InfoTree />
     </div>
     <div class="right-container">
-      <div class="table-header">
-        <div class="input-item">
-          <span>编码：</span>
-          <el-input v-model="infoParams.idCode" />
+      <div class="filter-container">
+        <div class="filter-item">
+          <!-- <span>编码：</span> -->
+          <el-input v-model="infoParams.idCode"
+                    placeholder="编号" />
         </div>
-        <div class="input-item">
-          <span>名称：</span>
-          <el-input v-model="infoParams.name" />
+        <div class="filter-item">
+          <!-- <span>名称：</span> -->
+          <el-input v-model="infoParams.name"
+                    placeholder="名称" />
         </div>
-        <el-button type="primary"
+        <el-button class="filter-item"
+                   type="primary"
                    icon="el-icon-search">
           搜索
         </el-button>
@@ -226,19 +229,17 @@ export default {
     width: 80%;
     display: flex;
     flex-direction: column;
-    .table-header {
+    .filter-container {
       width: 100%;
-      min-height: 60px;
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
       flex: 0;
-      .input-item {
-        padding-right: 50px;
-        display: flex;
-        align-items: center;
+      padding-bottom:0;
+      .filter-item {
+        width: 200px;
+        display: inline-block;
+        vertical-align: middle;
+        margin: 10px;
       }
-      .input-item:nth-of-type(1) {
+      .filter-item:nth-of-type(1) {
         margin-left: 10px;
       }
     }
@@ -269,10 +270,20 @@ export default {
       border-radius: 20px;
     }
   }
-  .el-pagination{
+  .el-pagination {
     display: flex;
     justify-content: flex-end;
     padding: 10px 20px;
+  }
+  .table-body {
+    .el-table /deep/.cell {
+      display: flex;
+      flex-flow: wrap;
+      justify-content: space-evenly;
+    }
+    .el-button {
+      margin-left: 0 !important;
+    }
   }
   .table-footer {
     .el-button:nth-of-type(1) {
