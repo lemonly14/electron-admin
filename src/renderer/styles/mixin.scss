@@ -87,3 +87,9 @@
 @mixin normal-dialog {
   width: 40%;
 }
+
+@mixin s-dialog {
+  width: 450px !important;
+  margin-top: 35vh !important;
+  border-radius: 20px;
+}
