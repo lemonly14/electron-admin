@@ -12,13 +12,13 @@ const warehouseRouter = {
   children: [
     {
       path: 'pureGoldInfomation',
-      component: () => import('@/views/warehouse/pureGoldInfomation'),
+      component: () => import('@/views/warehouse/pureGoldInformation'),
       name: 'PureGold',
       meta: { title: '素金入库管理', noCache: true }
     },
     {
       path: 'inlaidInfomation',
-      component: () => import('@/views/warehouse/inlaidInfomation'),
+      component: () => import('@/views/warehouse/inlaidInformation'),
       name: 'Inlaid',
       meta: { title: '镶嵌入库管理', noCache: true }
     }

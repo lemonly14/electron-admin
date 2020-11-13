@@ -18,13 +18,13 @@ const systemRouter = {
     },
     {
       path: 'supplierInfomation',
-      component: () => import('@/views/system/supplierInfomation'),
+      component: () => import('@/views/system/supplierInformation'),
       name: 'SupplierInfomation',
       meta: { title: '供应商管理', noCache: true }
     },
     {
       path: 'storeInfomation',
-      component: () => import('@/views/system/storeInfomation'),
+      component: () => import('@/views/system/storeInformation'),
       name: 'StoreInfomation',
       meta: { title: '仓库管理', noCache: true }
     }
