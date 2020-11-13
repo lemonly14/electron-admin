@@ -15,73 +15,66 @@
           <div slot="header"
                class="clearfix">
             <span>基础信息</span>
-            <el-button style="float: right; padding: 3px 0"
-                       type="text">操作按钮</el-button>
           </div>
-          <el-form-item v-for="item in basicGather"
-                        :key="item.prop"
-                        :label="item.label"
-                        :prop="item.prop">
-            <el-input v-if="item.type === 'input'"
-                      v-model="pureGoldFrom[item.prop]"
-                      :placeholder="item.placeholder" />
-            <el-select v-if="item.type === 'select'"
-                       v-model="pureGoldFrom[item.prop]"
-                       filterable
-                       placeholder="请选择">
-              <el-option
-                v-for="option in optionsMap[item.options]"
-                :key="option.value"
-                :label="option.label"
-                :value="option.value" />
-            </el-select>
-          </el-form-item>
+          <el-row :gutter="20">
+            <el-col v-for="item in basicGather"
+                    :key="item.prop"
+                    :span="8">
+              <el-form-item :label="item.label"
+                            :prop="item.prop">
+                <el-input v-if="item.type === 'input'"
+                          v-model="pureGoldFrom[item.prop]"
+                          :placeholder="item.placeholder" />
+                <el-select v-if="item.type === 'select'"
+                           v-model="pureGoldFrom[item.prop]"
+                           filterable
+                           placeholder="请选择">
+                  <el-option v-for="option in optionsMap[item.options]"
+                             :key="option.value"
+                             :label="option.label"
+                             :value="option.value" />
+                </el-select>
+                <el-date-picker v-if="item.type === 'datePicker'"
+                                v-model="pureGoldFrom[item.prop]"
+                                type="date"
+                                placeholder="选择日期" />
+              </el-form-item>
+            </el-col>
+          </el-row>
+
         </el-card>
         <el-card class="box-card">
           <div slot="header"
                class="clearfix">
-            <span>基础信息</span>
-            <el-button style="float: right; padding: 3px 0"
-                       type="text">操作按钮</el-button>
+            <span>金价信息</span>
           </div>
           <div class="count-info">
-            <el-form-item label="编码:"
-                          prop="id">
-              <el-input v-model="pureGoldFrom.id" />
-            </el-form-item>
-            <el-form-item label="编码:"
-                          prop="id">
-              <el-input v-model="pureGoldFrom.id" />
-            </el-form-item>
-            <el-form-item label="编码:"
-                          prop="id">
-              <el-input v-model="pureGoldFrom.id" />
-            </el-form-item>
-            <el-form-item label="编码:"
-                          prop="id">
-              <el-input v-model="pureGoldFrom.id" />
-            </el-form-item>
-            <el-form-item label="编码:"
-                          prop="id">
-              <el-input v-model="pureGoldFrom.id" />
-            </el-form-item>
-            <el-form-item label="编====码:"
-                          prop="id">
-              <el-input v-model="pureGoldFrom.id" />
+            <el-form-item v-for="item in measureGather"
+                          :key="item.prop"
+                          :label="item.label">
+              <el-input-number v-if="item.type === 'inputNumber'"
+                               v-model="pureGoldFrom[item.prop]"
+                               :placeholder="item.placeholder"
+                               controls-position="right"
+                               :min="0"
+                               @change="handleChangeNum" />
+              <el-radio-group v-if="item.type === 'radio'"
+                              v-model="pureGoldFrom[item.prop]">
+                <el-radio v-for="option in optionsMap[item.options]"
+                          :key="option.name"
+                          :label="option.label">{{ option.name }}</el-radio>
+              </el-radio-group>
             </el-form-item>
           </div>
           <div class="label-info">
-            <el-form-item label="编码:"
-                          prop="id">
-              <el-input v-model="pureGoldFrom.id" />
-            </el-form-item>
-            <el-form-item label="编码:"
-                          prop="id">
-              <el-input v-model="pureGoldFrom.id" />
-            </el-form-item>
-            <el-form-item label="编====码:"
-                          prop="id">
-              <el-input v-model="pureGoldFrom.id" />
+            <el-form-item v-for="item in labelGather"
+                          :key="item.prop"
+                          :label="item.label">
+              <el-input-number v-model="pureGoldFrom[item.prop]"
+                               :placeholder="item.placeholder"
+                               controls-position="right"
+                               :min="0"
+                               @change="handleChangeNum" />
             </el-form-item>
           </div>
         </el-card>
@@ -124,7 +117,7 @@
 <script>
 // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 // 例如：import 《组件名称》 from '《组件路径》';
-import { basicGather, units, styles } from '../../data'
+import { basicGather, measureGather, labelGather, units, styles, chargingTypes } from '../../data'
 export default {
   // import引入的组件需要注入到对象中才能使用
 
@@ -134,10 +127,15 @@ export default {
     return {
       dialogImageUrl: '',
       dialogVisible: false,
-      pureGoldFrom: {},
+      pureGoldFrom: {
+        date: new Date().getTime()
+      },
       basicGather: [],
+      measureGather: [],
+      labelGather: [],
       units: [],
       styles: [],
+      chargingTypes: [],
       countGather: [
         {
           label: '金总：',
@@ -186,10 +184,14 @@ export default {
   // 生命周期 - 创建完成（可以访问当前this实例）
   created() {
     this.basicGather = basicGather
+    this.measureGather = measureGather
+    this.labelGather = labelGather
     this.units = units
     this.styles = styles
+    this.chargingTypes = chargingTypes
     this.optionsMap['units'] = units
     this.optionsMap['styles'] = styles
+    this.optionsMap['chargingTypes'] = chargingTypes
   },
   // 生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {
@@ -213,6 +215,11 @@ export default {
     handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url
       this.dialogVisible = true
+    },
+    handleChangeNum(name, val) {
+      console.log('name', name)
+      console.log('val', val)
+      console.log('pureGoldFrom', this.pureGoldFrom)
     }
   }
 }
@@ -289,18 +296,21 @@ export default {
 
 <style lang="scss" scoped>
 .pure-gold-merge-container {
+  .el-col{
+    min-width: 300px;
+  }
   .el-form{
     display: flex;
     padding: 30px 50px;
   }
   .el-card{
     margin-bottom: 40px;
+    overflow: auto;
   }
   .left-container {
     .el-form-item{
-      width: 33%;
       /deep/.el-form-item__label{
-        width: 80px;
+        width: 115px;
       }
     }
     /deep/.el-card__body {
@@ -308,23 +318,28 @@ export default {
       flex-flow: wrap;
     }
     .el-input {
-     width: calc(100% - 80px)
+     width: calc(100% - 115px)
+    }
+    .el-select{
+      width: calc(100% - 115px);
+    }
+    .el-input-number{
+      width: calc(100% - 115px);
+    }
+    .el-radio-group{
+      width: calc(100% - 115px);
     }
   }
   .count-info{
     .el-form-item{
       width: 50%;
-      /deep/.el-form-item__label{
-        width: 80px;
-      }
+      min-width: 300px;
     }
   }
   .label-info{
     .el-form-item{
       width: 100%;
-      /deep/.el-form-item__label{
-        width: 80px;
-      }
+      min-width: 300px;
     }
   }
 }

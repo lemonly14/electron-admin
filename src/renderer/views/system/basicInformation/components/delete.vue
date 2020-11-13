@@ -9,7 +9,7 @@
       <span v-if="deleteType === 'single'">是否删除该条信息?</span>
       <span v-else-if="length > 0 && deleteType === 'batch'">是否删除选中的{{ length }}条信息?</span>
       <span slot="footer">
-        <el-button @click="closeDeleteDialog()">取 消</el-button>
+        <el-button @click="close()">取 消</el-button>
         <el-button type="primary"
                    @click="handleDelete()">确 定</el-button>
       </span>
@@ -41,6 +41,9 @@ export default {
   methods: {
     handleDelete() {
       this.$emit('on-delete')
+    },
+    close() {
+      this.isShow = false
     }
   }
 }

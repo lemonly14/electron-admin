@@ -1,25 +1,25 @@
 <!--  -->
 <template>
-  <div class="pure-gold-infomation-container">
+  <div class="pure-gold-information-container">
 
     <div v-if="!isMerge"
          class="home-container">
-      <div class="table-header">
-        <div class="input-item">
-          <span>类别：</span>
-          <el-input v-model="infoParams.type" />
+      <div class="filter-container">
+        <div class="filter-item">
+          <el-input v-model="infoParams.type"
+                    placeholder="类别" />
         </div>
-        <div class="input-item">
-          <span>成色：</span>
-          <el-input v-model="infoParams.fineness" />
+        <div class="filter-item">
+          <el-input v-model="infoParams.fineness"
+                    placeholder="成色" />
         </div>
-        <div class="input-item">
-          <span>款式：</span>
-          <el-input v-model="infoParams.style" />
+        <div class="filter-item">
+          <el-input v-model="infoParams.style"
+                    placeholder="款式" />
         </div>
-        <div class="input-item">
-          <span>金重：</span>
-          <el-input v-model="infoParams.weight" />
+        <div class="filter-item">
+          <el-input v-model="infoParams.weight"
+                    placeholder="金重" />
         </div>
         <el-button type="primary"
                    icon="el-icon-search">
@@ -31,18 +31,39 @@
                   border
                   style="width: 100%"
                   :header-cell-style="{background:'#E4E4E4'}">
-          <el-table-column prop="type"
-                           label="类别"
-                           width="180" />
-          <el-table-column prop="fineness"
-                           label="成色"
-                           width="180" />
+          <el-table-column prop="id"
+                           label="编码"
+                           width="130" />
+          <el-table-column prop="name"
+                           label="品名"
+                           width="130" />
           <el-table-column prop="style"
-                           label="款式" />
+                           label="款号"
+                           width="130" />
           <el-table-column prop="weight"
-                           label="金重" />
-          <el-table-column prop="certificateNumber"
-                           label="证书号" />
+                           label="金重"
+                           width="130" />
+          <el-table-column prop="price"
+                           label="金单价"
+                           width="130" />
+          <el-table-column prop="fee"
+                           label="工费"
+                           width="130" />
+          <el-table-column prop="unitPrice"
+                           label="件重"
+                           width="130" />
+          <el-table-column prop="unitPrice"
+                           label="数量"
+                           width="130" />
+          <el-table-column prop="unitPrice"
+                           label="件单价"
+                           width="130" />
+          <el-table-column prop="unitPrice"
+                           label="金额"
+                           width="130" />
+          <el-table-column prop="unitPrice"
+                           label="标签工费"
+                           width="130" />
           <el-table-column align="center"
                            fixed="right"
                            label="操作">
@@ -56,10 +77,17 @@
                          icon="el-icon-delete"
                          round
                          type="danger"
-                         @click="selectData(scope.$index, scope.row, 'single')">删除</el-button>
+                         @click="handleDelete(scope.$index, scope.row, 'single')">删除</el-button>
             </template>
           </el-table-column>
         </el-table>
+        <el-pagination :current-page="currentPage"
+                       :page-sizes="[100, 200, 300, 400]"
+                       :page-size="100"
+                       layout="total, sizes, prev, pager, next, jumper"
+                       :total="400"
+                       @size-change="handleSizeChange"
+                       @current-change="handleCurrentChange" />
       </div>
       <div class="table-footer">
         <el-button icon="el-icon-plus"
@@ -71,7 +99,7 @@
                    round
                    type="primary"
                    plain
-                   @click="deleteItem()">导出</el-button>
+                   @click="exportBarcode()">导出条码</el-button>
       </div>
     </div>
 
@@ -101,6 +129,7 @@ export default {
         style: '',
         weight: ''
       },
+      currentPage: 1,
       tableData: [{
         type: '类别',
         fineness: '01',
@@ -155,32 +184,37 @@ export default {
     },
     goBack() {
       this.isMerge = false
+    },
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`)
+    },
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`)
     }
   }
 }
 </script>
 <style lang='scss' scoped>
 @import url("../../../styles/animate.css");
-.pure-gold-infomation-container {
+.pure-gold-information-container {
   height: 100%;
+  overflow: auto;
   .home-container {
     display: flex;
     flex: 1;
     flex-direction: column;
     height: inherit;
-    .table-header {
+    .filter-container {
       width: 100%;
-      min-height: 60px;
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
       flex: 0;
-      .input-item {
-        padding-right: 50px;
-        display: flex;
-        align-items: center;
+      padding-bottom: 0;
+      .filter-item {
+        width: 200px;
+        display: inline-block;
+        vertical-align: middle;
+        margin: 10px;
       }
-      .input-item:nth-of-type(1) {
+      .filter-item:nth-of-type(1) {
         margin-left: 10px;
       }
     }
@@ -203,11 +237,31 @@ export default {
 </style>
 
 <style lang="scss" scoped>
-.pure-gold-infomation-container {
+.pure-gold-information-container {
+  .filter-container {
+    .el-button{
+      margin-left: 10px;
+    }
+  }
+  .el-pagination{
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 20px;
+  }
   .el-input {
     width: 200px;
     /deep/.el-input__inner {
       border-radius: 20px;
+    }
+  }
+  .table-body {
+    .el-table /deep/.cell {
+      display: flex;
+      flex-flow: wrap;
+      justify-content: space-evenly;
+    }
+    .el-button {
+      margin-left: 0 !important;
     }
   }
   .table-footer {

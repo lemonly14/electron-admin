@@ -1,5 +1,37 @@
 const basicGather = [
   {
+    label: '收货店铺：',
+    prop: 'shop',
+    placeholder: '',
+    type: 'select',
+    options: 'shops ',
+    default: ''
+  },
+  {
+    label: '收货仓库：',
+    prop: 'store',
+    placeholder: '',
+    type: 'select',
+    options: 'stores ',
+    default: ''
+  },
+  {
+    label: '供应商名称：',
+    prop: 'supplier',
+    placeholder: '',
+    type: 'select',
+    options: 'suppliers',
+    default: ''
+  },
+  {
+    label: '采购日期：',
+    prop: 'date',
+    placeholder: '',
+    type: 'datePicker',
+    options: 'suppliers',
+    default: ''
+  },
+  {
     label: '编码：',
     prop: 'id',
     placeholder: '自动生成',
@@ -54,7 +86,7 @@ const basicGather = [
   },
   {
     label: '证书号：',
-    prop: 'fineness',
+    prop: 'certificateNumber',
     placeholder: '',
     type: 'input',
     default: ''
@@ -105,6 +137,76 @@ const basicGather = [
   }
 ]
 
+const measureGather = [
+  {
+    label: '金重(g)：',
+    prop: 'weight',
+    placeholder: '',
+    type: 'inputNumber',
+    default: 1
+  },
+  {
+    label: '工费：',
+    prop: 'fee',
+    placeholder: '',
+    type: 'inputNumber',
+    default: 1
+  },
+  {
+    label: '单价：',
+    prop: 'price',
+    placeholder: '',
+    type: 'inputNumber',
+    default: 1
+  },
+  {
+    label: '工费计价方式：',
+    prop: 'chargingType',
+    placeholder: '',
+    type: 'radio',
+    options: 'chargingTypes',
+    default: 1
+  },
+  {
+    label: '进货数量：',
+    prop: 'count',
+    placeholder: '',
+    type: 'inputNumber',
+    default: 1
+  },
+  {
+    label: '总成本：',
+    prop: 'totalCost',
+    placeholder: '',
+    type: 'inputNumber',
+    default: 1
+  }
+]
+
+const labelGather = [
+  {
+    label: '标签工费：',
+    prop: 'chargingType',
+    placeholder: '',
+    type: 'inputNumber',
+    default: 1
+  },
+  {
+    label: '进货数量：',
+    prop: 'count',
+    placeholder: '',
+    type: 'inputNumber',
+    default: 1
+  },
+  {
+    label: '总成本：',
+    prop: 'totalCost',
+    placeholder: '',
+    type: 'inputNumber',
+    default: 1
+  }
+]
+
 const units = [
   {
     label: '克',
@@ -131,4 +233,15 @@ const styles = [
   }
 ]
 
-export { basicGather, units, styles }
+const chargingTypes = [
+  {
+    name: '按件',
+    label: 0
+  },
+  {
+    name: '按重',
+    label: 1
+  }
+]
+
+export { basicGather, units, styles, chargingTypes, measureGather, labelGather }
