@@ -78,11 +78,11 @@
         @click="add()"
       >添加</el-button>
       <el-button icon="el-icon-delete"
-                   round
-                   type="danger"
-                   plain
-                   :disabled="!length > 0"
-                   @click="deleteItems()">批量删除</el-button>
+        round
+        type="danger"
+        plain
+        :disabled="!length > 0"
+        @click="deleteItems()">批量删除</el-button>
       <el-button
         icon="el-icon-bottom"
         round
@@ -94,11 +94,11 @@
            :edit-info="editInfo"
            :tittle-name="tittleName" />
     <Delete ref="delete"
-      :length="length"
-      :delete-type="deleteType"
-      :tittle-name="tittleName" />
+          :length="length"
+          :delete-type="deleteType"
+          :tittle-name="tittleName" />
     <Export ref="export"
-      :tittle-name="tittleName" />
+          :tittle-name="tittleName" />
   </div>
 </template>
 

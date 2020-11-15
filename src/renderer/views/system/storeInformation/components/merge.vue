@@ -10,8 +10,8 @@
         <el-form ref="storeInfoFrom"
                  :model="storeInfoFrom"
                  :rules="rules"
-                 label-width="110px">
-          <el-form-item label="所属店铺："
+                 label-width="80px">
+          <el-form-item label="所属店铺"
                         prop="store"> <!--表单域 model 字段，在使用 validate、resetFields 方法的情况下，该属性是必填的-->
             <el-select v-model="storeInfoFrom.store"
                        placeholder="请选择">
@@ -36,6 +36,10 @@
                         prop="remarks">
             <el-input v-model="storeInfoFrom.remarks" />
           </el-form-item>
+          <el-from-item prop="checked">
+            <el-checkbox v-model="storeInfoFrom.checked"
+                         label="不参加交接班" />
+          </el-from-item>
         </el-form>
       </div>
       <span slot="footer">
@@ -73,7 +77,8 @@ export default {
         warehouseCode: '',
         warehouseName: '',
         warehouseCharity: '',
-        remarks: ''
+        remarks: '',
+        checked: false
       },
       tpyeOptions: [
         {
@@ -168,14 +173,14 @@ export default {
   }
   .form-container {
     .el-form {
-      width: 90%;
+      width: 70%;
       margin: auto;
       display: flex;
       flex-flow: row wrap;
       .el-form-item {
-        width: 50%;
+        width: 100%;
         /deep/.el-form-item__content {
-          min-width: 150px;
+          min-width: 100px;
         }
       }
       .el-select {
