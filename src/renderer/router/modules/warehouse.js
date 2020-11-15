@@ -21,6 +21,12 @@ const warehouseRouter = {
       component: () => import('@/views/warehouse/inlaidInformation'),
       name: 'Inlaid',
       meta: { title: '镶嵌入库管理', noCache: true }
+    },
+    {
+      path: 'jewelryInformation',
+      component: () => import('@/views/warehouse/jewelryInformation'),
+      name: 'Jewelry',
+      meta: { title: '饰品入库管理', noCache: true }
     }
   ]
 }

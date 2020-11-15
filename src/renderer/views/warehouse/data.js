@@ -183,6 +183,38 @@ const measureGather = [
   }
 ]
 
+const shortMeasureGather = [
+  {
+    label: '金重(g)：',
+    prop: 'weight',
+    placeholder: '',
+    type: 'inputNumber',
+    default: 1
+  },
+  {
+    label: '工费：',
+    prop: 'fee',
+    placeholder: '',
+    type: 'inputNumber',
+    default: 1
+  },
+  {
+    label: '单价：',
+    prop: 'price',
+    placeholder: '',
+    type: 'inputNumber',
+    default: 1
+  },
+  {
+    label: '工费计价方式：',
+    prop: 'chargingType',
+    placeholder: '',
+    type: 'radio',
+    options: 'chargingTypes',
+    default: 1
+  }
+]
+
 const labelGather = [
   {
     label: '标签工费：',
@@ -201,6 +233,135 @@ const labelGather = [
   {
     label: '总成本：',
     prop: 'totalCost',
+    placeholder: '',
+    type: 'inputNumber',
+    default: 1
+  }
+]
+
+const shortLabelGather = [
+  {
+    label: '标签工费：',
+    prop: 'chargingType',
+    placeholder: '',
+    type: 'inputNumber',
+    default: 1
+
+  }
+]
+
+const stoneInfos = [
+  [
+    {
+      label: '主石：',
+      prop: 'mainStone',
+      placeholder: '主石',
+      type: 'select',
+      options: 'stones ',
+      default: 1
+    },
+    {
+      label: '',
+      prop: 'stoneWeight',
+      placeholder: '石重',
+      type: 'inputNumber',
+      default: 1
+    },
+    {
+      label: '',
+      prop: 'stonePrice',
+      placeholder: '单价',
+      type: 'inputNumber',
+      default: 1
+    },
+    {
+      label: '',
+      prop: 'stoneNum',
+      placeholder: '粒数',
+      type: 'inputNumber',
+      default: 1
+    },
+    {
+      label: '',
+      prop: 'stoneColor',
+      placeholder: '颜色',
+      type: 'select',
+      options: 'stones ',
+      default: 1
+    },
+    {
+      label: '',
+      prop: 'stoneShape',
+      placeholder: '形状',
+      type: 'select',
+      options: 'stones ',
+      default: 1
+    },
+    {
+      label: '',
+      prop: 'stoneCut',
+      placeholder: '切工',
+      type: 'select',
+      options: 'stones ',
+      default: 1
+    },
+    {
+      label: '',
+      prop: 'stonePurity',
+      placeholder: '净度',
+      type: 'select',
+      options: 'stones ',
+      default: 1
+    },
+    {
+      label: '',
+      prop: 'stoneLabelPrice',
+      placeholder: '石标签价',
+      type: 'inputNumber',
+      default: 1
+    }
+  ]
+]
+
+const wholeGather = [
+  {
+    label: '件重：',
+    prop: 'pieceWeight',
+    placeholder: '',
+    type: 'inputNumber',
+    default: 1
+  },
+  {
+    label: '成本单价：',
+    prop: 'unitCost',
+    placeholder: '',
+    type: 'inputNumber',
+    default: 1
+  },
+  {
+    label: '进货数量',
+    prop: 'enterNum',
+    placeholder: '',
+    type: 'inputNumber',
+    default: 1
+  },
+  {
+    label: '总成本：',
+    prop: 'totalCost',
+    placeholder: '',
+    type: 'input',
+    default: 1
+  },
+  {
+    label: '标价系数：',
+    prop: 'priceRatio',
+    placeholder: '',
+    type: 'inputNumber',
+    default: 1
+  },
+  {
+    label: '标签价：',
+    prop: 'labelPrice',
     placeholder: '',
     type: 'inputNumber',
     default: 1
@@ -244,4 +405,4 @@ const chargingTypes = [
   }
 ]
 
-export { basicGather, units, styles, chargingTypes, measureGather, labelGather }
+export { basicGather, units, styles, chargingTypes, measureGather, shortMeasureGather, labelGather, shortLabelGather, stoneInfos, wholeGather }
