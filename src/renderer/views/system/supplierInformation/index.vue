@@ -23,28 +23,27 @@
         border
         style="width: 100%"
         :header-cell-style="{background:'#E4E4E4'}"
+        @selection-change="handleSelect"
       >
+        <el-table-column type="selection"
+                           width="55" />
         <el-table-column
-          prop="type"
+          prop="supplierCode"
           label="供应商编码"
           width="180"
         />
         <el-table-column
-          prop="id"
+          prop="supplierName"
           label="供应商名称"
           width="180"
         />
         <el-table-column
-          prop="name"
+          prop="supplierAddr"
           label="地址"
         />
         <el-table-column
-          prop="sortNum"
+          prop="phoneNumber"
           label="办公电话"
-        />
-        <el-table-column
-          prop="remark"
-          label="办公"
         />
         <el-table-column
           align="center"
@@ -64,7 +63,7 @@
               icon="el-icon-delete"
               round
               type="danger"
-              @click="selectData(scope.$index, scope.row, 'single')"
+              @click="handleDelete(scope.$index, scope.row)"
             >删除</el-button>
           </template>
         </el-table-column>
@@ -78,60 +77,61 @@
         plain
         @click="add()"
       >添加</el-button>
+      <el-button icon="el-icon-delete"
+                   round
+                   type="danger"
+                   plain
+                   :disabled="!length > 0"
+                   @click="deleteItems()">批量删除</el-button>
       <el-button
         icon="el-icon-bottom"
         round
         type="primary"
         plain
-        @click="deleteItem()"
-      >导出</el-button>
+        @click="exportItems()">导出</el-button>
     </div>
-    <!-- <Merge ref="merge" :tittle-name="tittleName" /> -->
+    <Merge ref="merge"
+           :edit-info="editInfo"
+           :tittle-name="tittleName" />
+    <Delete ref="delete"
+      :length="length"
+      :delete-type="deleteType"
+      :tittle-name="tittleName" />
+    <Export ref="export"
+      :tittle-name="tittleName" />
   </div>
 </template>
 
 <script>
 // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 // 例如：import 《组件名称》 from '《组件路径》';
-// import { InfoTree,Merge } from './components/index'
+import { Merge, Delete, Export } from './components/index'
+import _ from 'lodash'
 export default {
   // import引入的组件需要注入到对象中才能使用
   components: {
-
+    Merge,
+    Delete,
+    Export
   },
   data() {
     // 这里存放数据
     return {
+      length: 0,
+      deleteType: '',
       infoParams: {
         idCode: '',
         name: ''
       },
       tableData: [{
-        type: '类别',
-        id: '01',
-        name: '黄金按克',
-        sortNum: '0',
-        remark: ''
-      }, {
-        type: '类别',
-        id: '02',
-        name: '黄金按件',
-        sortNum: '0',
-        remark: ''
-      }, {
-        type: '类别',
-        id: '03',
-        name: 'K金',
-        sortNum: '0',
-        remark: ''
-      }, {
-        type: '类别',
-        id: '04',
-        name: '钻石',
-        sortNum: '0',
+        supplierCode: '1001',
+        supplierName: '老凤祥',
+        supplierAddr: '上海',
+        phoneNumber: '12345678',
         remark: ''
       }],
-      tittleName: ''
+      tittleName: '',
+      editInfo: {}
 
     }
   },
@@ -158,6 +158,31 @@ export default {
   methods: {
     add() {
       this.$refs.merge.isShow = true
+      this.tittleName = '添加'
+    },
+    handleEdit(index, row) {
+      this.$refs.merge.isShow = true
+      this.tittleName = '编辑'
+      this.editInfo = _.cloneDeep(row)
+      console.log('row', row)
+    },
+    handleDelete(index, row) {
+      this.$refs.delete.isShow = true
+      this.tittleName = '删除'
+      this.deleteType = 'single'
+    },
+    deleteItems() {
+      this.tittleName = '批量删除'
+      this.$refs.delete.isShow = true
+      this.deleteType = 'batch'
+    },
+    exportItems() {
+      this.tittleName = '导出'
+      this.$refs.export.isShow = true
+    },
+    handleSelect(selection) {
+      console.log('selection', selection)
+      this.length = selection.length
     }
   }
 }
