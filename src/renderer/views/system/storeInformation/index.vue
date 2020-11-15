@@ -23,28 +23,31 @@
         border
         style="width: 100%"
         :header-cell-style="{background:'#E4E4E4'}"
+        @selection-change="handleSelect"
       >
+        <el-table-column type="selection"
+                           width="55" />
         <el-table-column
-          prop="type"
-          label="供应商编码"
+          prop="store"
+          label="所属店铺"
           width="180"
         />
         <el-table-column
-          prop="id"
-          label="供应商名称"
+          prop="warehouseCode"
+          label="仓库编码"
           width="180"
         />
         <el-table-column
-          prop="name"
-          label="地址"
+          prop="warehouseName"
+          label="仓库名称"
         />
         <el-table-column
-          prop="sortNum"
-          label="办公电话"
+          prop="warehouseCharity"
+          label="负责人"
         />
         <el-table-column
           prop="remark"
-          label="办公"
+          label="仓库备注"
         />
         <el-table-column
           align="center"
@@ -64,7 +67,7 @@
               icon="el-icon-delete"
               round
               type="danger"
-              @click="selectData(scope.$index, scope.row, 'single')"
+              @click="handleDelete(scope.$index, scope.row)"
             >删除</el-button>
           </template>
         </el-table-column>
@@ -78,59 +81,57 @@
         plain
         @click="add()"
       >添加</el-button>
+      <el-button icon="el-icon-delete"
+        round
+        type="danger"
+        plain
+        :disabled="!length > 0"
+        @click="deleteItems()">批量删除</el-button>
       <el-button
         icon="el-icon-bottom"
         round
         type="primary"
         plain
-        @click="deleteItem()"
-      >导出</el-button>
+        @click="exportItems()">导出</el-button>
     </div>
     <Merge ref="merge"
            :edit-info="editInfo"
            :tittle-name="tittleName" />
+    <Delete ref="delete"
+          :length="length"
+          :delete-type="deleteType"
+          :tittle-name="tittleName" />
+    <Export ref="export"
+          :tittle-name="tittleName" />
   </div>
 </template>
 
 <script>
 // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 // 例如：import 《组件名称》 from '《组件路径》';
-import { Merge } from './components/index'
+import { Merge, Delete, Export } from './components/index'
+import _ from 'lodash'
 export default {
   // import引入的组件需要注入到对象中才能使用
   components: {
-    Merge
+    Merge,
+    Delete,
+    Export
   },
   data() {
     // 这里存放数据
     return {
+      length: 0,
+      deleteType: '',
       infoParams: {
         idCode: '',
         name: ''
       },
       tableData: [{
-        type: '类别',
-        id: '01',
-        name: '黄金按克',
-        sortNum: '0',
-        remark: ''
-      }, {
-        type: '类别',
-        id: '02',
-        name: '黄金按件',
-        sortNum: '0',
-        remark: ''
-      }, {
-        type: '类别',
-        id: '03',
-        name: 'K金',
-        sortNum: '0',
-        remark: ''
-      }, {
-        type: '类别',
-        id: '04',
-        name: '钻石',
-        sortNum: '0',
+        store: '总店',
+        warehouseCode: '01',
+        warehouseName: '柜台',
+        warehouseCharity: '王',
         remark: ''
       }],
       tittleName: '',
@@ -162,6 +163,30 @@ export default {
     add() {
       this.$refs.merge.isShow = true
       this.tittleName = '添加'
+    },
+    handleEdit(index, row) {
+      this.$refs.merge.isShow = true
+      this.tittleName = '编辑'
+      this.editInfo = _.cloneDeep(row)
+      console.log('row', row)
+    },
+    handleDelete(index, row) {
+      this.$refs.delete.isShow = true
+      this.tittleName = '删除'
+      this.deleteType = 'single'
+    },
+    deleteItems() {
+      this.tittleName = '批量删除'
+      this.$refs.delete.isShow = true
+      this.deleteType = 'batch'
+    },
+    exportItems() {
+      this.tittleName = '导出'
+      this.$refs.export.isShow = true
+    },
+    handleSelect(selection) {
+      console.log('selection', selection)
+      this.length = selection.length
     }
   }
 }

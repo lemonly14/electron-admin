@@ -10,65 +10,26 @@
         <el-form ref="storeInfoFrom"
                  :model="storeInfoFrom"
                  :rules="rules"
-                 label-width="100px">
-          <el-form-item label="供应商编码："
-                        prop="supplierCode"> <!--表单域 model 字段，在使用 validate、resetFields 方法的情况下，该属性是必填的-->
-            <el-input v-model="storeInfoFrom.supplierCode" />
+                 label-width="110px">
+          <el-form-item label="所属店铺："
+                        prop="store"
+                        placeholder="请选择"> <!--表单域 model 字段，在使用 validate、resetFields 方法的情况下，该属性是必填的-->
+            <el-input v-model="storeInfoFrom.store" />
+              <el-option v-for="item in tpyeOptions"
+                         :key="item.value"
+                         :value="item.value" />
           </el-form-item>
-          <el-form-item label="供应商名称："
-                        prop="supplierName">
-            <el-input v-model="storeInfoFrom.supplierName" />
+          <el-form-item label="仓库编码："
+                        prop="warehouseCode">
+            <el-input v-model="storeInfoFrom.warehouseCode" />
           </el-form-item>
-          <el-form-item label="供应商地址："
-                        prop="supplierAddr">
-            <el-input v-model="storeInfoFrom.supplierAddr" />
+          <el-form-item label="仓库名称："
+                        prop="warehouseName">
+            <el-input v-model="storeInfoFrom.warehouseName" />
           </el-form-item>
-          <el-form-item label="办公电话："
-                        prop="phoneNumber">
-            <el-input v-model="storeInfoFrom.phoneNumber" />
-          </el-form-item>
-          <el-form-item label="办公传真："
-                        prop="officeFax">
-            <el-input v-model="storeInfoFrom.officeFax" />
-          </el-form-item>
-          <el-form-item label="联系人："
-                        prop="contacts">
-            <el-input v-model="storeInfoFrom.contacts" />
-          </el-form-item>
-          <el-form-item label="电子邮箱："
-                        prop="email">
-            <el-input v-model="storeInfoFrom.email" />
-          </el-form-item>
-          <el-form-item label="公司网址："
-                        prop="companyWebsite">
-            <el-input v-model="storeInfoFrom.companyWebsite" />
-          </el-form-item>
-           <el-form-item label="开户行："
-                        prop="bankDeposit">
-            <el-input v-model="storeInfoFrom.bankDeposit" />
-          </el-form-item>
-          <el-form-item label="银行账号："
-                        prop="accountNumber">
-            <el-input v-model="storeInfoFrom.accountNumber" />
-          </el-form-item>
-          <el-form-item label="税号："
-                        prop="dutyParagraph">
-            <el-input v-model="storeInfoFrom.dutyParagraph" />
-          </el-form-item>
-          <el-form-item label="所属地区："
-                        prop="regoin">
-            <el-input v-model="storeInfoFrom.regoin" />
-          </el-form-item>
-          <el-form-item label="期初金额："
-                        prop="openingAmount">
-            <el-input-number v-model="storeInfoFrom.openingAmount"
-                             controls-position="right"
-                             :min="1"
-                             :max="10"/>
-          </el-form-item>
-          <el-form-item label="建档时间："
-                        prop="filingTime">
-            <el-input v-model="storeInfoFrom.filingTime" />
+          <el-form-item label="负责人："
+                        prop="warehouseCharity">
+            <el-input v-model="storeInfoFrom.warehouseCharity" />
           </el-form-item>
           <el-form-item label="备注："
                         prop="remarks">
@@ -107,25 +68,20 @@ export default {
     return {
       isShow: false,
       storeInfoFrom: {
-        supplierCode: '',
-        supplierAddr: '',
-        supplierName: '',
-        phoneNumber: '',
-        officeFax: '',
-        email: '',
-        companyWebsite: '',
-        bankDeposit: '',
-        accountNumber: '',
-        dutyParagraph: '',
-        regoin: '',
-        openingAmount: '',
-        filingTime: '',
+        store: '',
+        warehouseCode: '',
+        warehouseName: '',
+        warehouseCharity: '',
         remarks: ''
       },
+      tpyeOptions: [
+        {
+          value: '总店'
+        }
+      ],
       rules: {
         /* 供应商名称和编码为必填项，需校验 */
-        supplierCode: [{ required: true, message: '请填写供应商编码', trigger: 'change' }],
-        supplierName: [{ required: true, message: '请选择供应商名称', trigger: 'change' }]
+        warehouseCode: [{ required: true, message: '请填写仓库编码', trigger: 'change' }]
       }
     }
   },
