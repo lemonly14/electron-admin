@@ -160,6 +160,7 @@ export default {
   // 方法集合
   methods: {
     add() {
+      console.log('this.$refs.merge', this.$refs.merge)
       this.$refs.merge.isShow = true
       this.tittleName = '添加'
     }

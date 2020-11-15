@@ -136,44 +136,15 @@ export default {
       units: [],
       styles: [],
       chargingTypes: [],
-      countGather: [
-        {
-          label: '金总：',
-          prop: 'weight',
-          placeholder: ''
-        },
-        {
-          label: '工费：',
-          prop: 'cost',
-          placeholder: ''
-        },
-        {
-          label: '标签工费：',
-          prop: 'labelCost',
-          placeholder: ''
-        },
-        {
-          label: '单价：',
-          prop: 'price',
-          placeholder: ''
-        },
-        {
-          label: '销售系数：',
-          prop: 'saleFactoc',
-          placeholder: ''
-        },
-        {
-          label: '进货数量：',
-          prop: 'inCount',
-          placeholder: ''
-        },
-        {
-          label: '总成本：',
-          prop: 'totalCost',
-          placeholder: ''
-        }
-      ],
-      rules: {},
+      rules: {
+        shop: [{ required: true, message: '请选择收货店铺', trigger: 'change' }],
+        store: [{ required: true, message: '请选择收货仓库', trigger: 'change' }],
+        supplier: [{ required: true, message: '请选择供应商名称', trigger: 'change' }],
+        date: [{ required: true, message: '请填写采购日期', trigger: 'change' }],
+        style: [{ required: true, message: '请选择供类别', trigger: 'change' }],
+        fineness: [{ required: true, message: '请选择成色', trigger: 'change' }],
+        fashion: [{ required: true, message: '请选择款式', trigger: 'change' }]
+      },
       optionsMap: {}
     }
   },
