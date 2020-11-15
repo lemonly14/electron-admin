@@ -20,19 +20,19 @@
                          :value="item.value" />
             </el-select>
           </el-form-item>
-          <el-form-item label="名称："
+          <el-form-item label="名称"
                         prop="name">
             <el-input v-model="basicFrom.name" />
           </el-form-item>
-          <el-form-item label="编号："
+          <el-form-item label="编号"
                         prop="id">
             <el-input v-model="basicFrom.id" />
           </el-form-item>
-          <el-form-item label="排序："
+          <el-form-item label="排序"
                         prop="sort">
             <el-input v-model="basicFrom.sort" />
           </el-form-item>
-          <el-form-item label="备注："
+          <el-form-item label="备注"
                         prop="remarks">
             <el-input v-model="basicFrom.remarks" />
           </el-form-item>
