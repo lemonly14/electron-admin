@@ -6,7 +6,7 @@ const systemRouter = {
   redirect: 'noRedirect',
   name: 'System',
   meta: {
-    title: 'System',
+    title: '系统管理',
     icon: 'chart'
   },
   children: [
@@ -27,6 +27,12 @@ const systemRouter = {
       component: () => import('@/views/system/storeInformation'),
       name: 'StoreInfomation',
       meta: { title: '仓库管理', noCache: true }
+    },
+    {
+      path: 'roleManager',
+      component: () => import('@/views/system/roleManager'),
+      name: 'RoleManager',
+      meta: { title: '角色管理', noCache: true }
     }
   ]
 }

@@ -43,7 +43,7 @@
                         prop="companyWebsite">
             <el-input v-model="supplierInfoFrom.companyWebsite" />
           </el-form-item>
-           <el-form-item label="开户行："
+          <el-form-item label="开户行："
                         prop="bankDeposit">
             <el-input v-model="supplierInfoFrom.bankDeposit" />
           </el-form-item>
@@ -64,7 +64,7 @@
             <el-input-number v-model="supplierInfoFrom.openingAmount"
                              controls-position="right"
                              :min="1"
-                             :max="10"/>
+                             :max="10" />
           </el-form-item>
           <el-form-item label="建档时间："
                         prop="filingTime">

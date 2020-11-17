@@ -6,41 +6,16 @@
       <div class="dialog-tittle">
         <p class="tittle-word">{{ tittleName }}</p>
       </div>
-      <div class="form-container">
-        <el-form ref="storeInfoFrom"
-                 :model="storeInfoFrom"
-                 :rules="rules"
-                 label-width="110px">
-          <el-form-item label="所属店铺："
-                        prop="store"
-                        placeholder="请选择"> <!--表单域 model 字段，在使用 validate、resetFields 方法的情况下，该属性是必填的-->
-            <el-input v-model="storeInfoFrom.store" />
-            <el-option v-for="item in tpyeOptions"
-                       :key="item.value"
-                       :value="item.value" />
-          </el-form-item>
-          <el-form-item label="仓库编码："
-                        prop="warehouseCode">
-            <el-input v-model="storeInfoFrom.warehouseCode" />
-          </el-form-item>
-          <el-form-item label="仓库名称："
-                        prop="warehouseName">
-            <el-input v-model="storeInfoFrom.warehouseName" />
-          </el-form-item>
-          <el-form-item label="负责人："
-                        prop="warehouseCharity">
-            <el-input v-model="storeInfoFrom.warehouseCharity" />
-          </el-form-item>
-          <el-form-item label="备注："
-                        prop="remarks">
-            <el-input v-model="storeInfoFrom.remarks" />
-          </el-form-item>
-        </el-form>
+      <div class="auth-container">
+        <el-tree :data="routes"
+                 show-checkbox
+                 node-key="path"
+                 :props="defaultProps" />
       </div>
       <span slot="footer">
         <el-button @click="close()">取 消</el-button>
         <el-button type="primary"
-                   @click="submitForm('storeInfoFrom')">确 定</el-button>
+                   @click="submitForm('roleInfoFrom')">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -50,6 +25,9 @@
 // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 // 例如：import 《组件名称》 from '《组件路径》';
 import _ from 'lodash'
+import path from 'path'
+import i18n from '@/lang'
+import { asyncRoutes, constantRoutes } from '@/router'
 export default {
   components: {},
   // import引入的组件需要注入到对象中才能使用
@@ -67,18 +45,11 @@ export default {
     // 这里存放数据
     return {
       isShow: false,
-      storeInfoFrom: {
-        store: '',
-        warehouseCode: '',
-        warehouseName: '',
-        warehouseCharity: '',
-        remarks: ''
+      routes: [],
+      defaultProps: {
+        children: 'children',
+        label: 'title'
       },
-      tpyeOptions: [
-        {
-          value: '总店'
-        }
-      ],
       rules: {
         /* 供应商名称和编码为必填项，需校验 */
         warehouseCode: [{ required: true, message: '请填写仓库编码', trigger: 'change' }]
@@ -93,7 +64,7 @@ export default {
   watch: {
     editInfo: {
       handler(newInfo, oldInfo) {
-        this.storeInfoFrom = _.cloneDeep(newInfo)
+        this.roleInfoFrom = _.cloneDeep(newInfo)
       }, deep: true, immediate: true
     },
     tittleName(newName, oldName) {
@@ -101,15 +72,14 @@ export default {
       console.log('newName', newName)
     },
     isShow(newVal, oldVal) {
-      newVal && this.tittleName === '添加' && Object.keys(this.storeInfoFrom).forEach(key => { this.storeInfoFrom[key] = '' })
-      this.$nextTick(() => {
-        this.$refs.storeInfoFrom.clearValidate()
-      })
+
     }
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
   created() {
-
+    const data = _.cloneDeep([...constantRoutes, ...asyncRoutes])
+    const routes = this.generateRoutes(data)
+    this.routes = this.i18n(routes)
   },
   // 生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {
@@ -148,6 +118,63 @@ export default {
           })
         }
       })
+    },
+    // Reshape the routes structure so that it looks the same as the sidebar
+    generateRoutes(routes, basePath = '/') {
+      const res = []
+
+      for (let route of routes) {
+        // skip some route
+        if (route.hidden) { continue }
+
+        const onlyOneShowingChild = this.onlyOneShowingChild(route.children, route)
+
+        if (route.children && onlyOneShowingChild && !route.alwaysShow) {
+          route = onlyOneShowingChild
+        }
+        // console.log('route', route)
+        const data = {
+          path: path.resolve(basePath, route.path),
+          title: route.meta && route.meta.title
+        }
+        // recursive child routes
+        if (route.children) {
+          data.children = this.generateRoutes(route.children, data.path)
+        }
+        res.push(data)
+      }
+      return res
+    },
+    onlyOneShowingChild(children = [], parent) {
+      let onlyOneChild = null
+      const showingChildren = children.filter(item => !item.hidden)
+      // console.log('showingChildren', showingChildren)
+      // When there is only one child route, the child route is displayed by default
+      if (showingChildren.length === 1) {
+        onlyOneChild = showingChildren[0]
+        onlyOneChild.path = path.resolve(parent.path, onlyOneChild.path)
+        // console.log('onlyOneChild', onlyOneChild)
+        return onlyOneChild
+      }
+
+      // Show parent if there are no child route to display
+      if (showingChildren.length === 0) {
+        onlyOneChild = { ... parent, path: '', noShowingChildren: true }
+        // console.log('onlyOneChild', onlyOneChild)
+        return onlyOneChild
+      }
+
+      return false
+    },
+    i18n(routes) {
+      const app = routes.map(route => {
+        route.title = i18n.t(`${route.title}`)
+        if (route.children) {
+          route.children = this.i18n(route.children)
+        }
+        return route
+      })
+      return app
     }
   }
 }
@@ -165,22 +192,17 @@ export default {
     display: flex;
     justify-content: center;
   }
-  .form-container {
-    .el-form {
-      width: 90%;
-      margin: auto;
-      display: flex;
-      flex-flow: row wrap;
-      .el-form-item {
-        width: 50%;
-        /deep/.el-form-item__content {
-          min-width: 150px;
-        }
-      }
-      .el-select {
-        width: -webkit-fill-available;
-      }
-    }
+  .auth-container {
+    overflow: auto;
+    height: 380px;
   }
+}
+</style>
+
+<style lang="scss" scoped>
+@import "@/styles/mixin.scss";
+/deep/.el-dialog{
+  @include s-dialog;
+  height: 600px;
 }
 </style>

@@ -1,6 +1,6 @@
 <!--  -->
 <template>
-  <div class="supplier-infomation-container">
+  <div class="role-manager-container">
     <div class="table-header">
       <div class="input-item">
         <span>编码：</span>
@@ -94,7 +94,7 @@
         plain
         @click="exportItems()">导出</el-button>
     </div>
-    <Merge ref="merge"
+    <!-- <Merge ref="merge"
            :edit-info="editInfo"
            :tittle-name="tittleName" />
     <Delete ref="delete"
@@ -102,21 +102,21 @@
             :delete-type="deleteType"
             :tittle-name="tittleName" />
     <Export ref="export"
-            :tittle-name="tittleName" />
+            :tittle-name="tittleName" /> -->
   </div>
 </template>
 
 <script>
 // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 // 例如：import 《组件名称》 from '《组件路径》';
-import { Merge, Delete, Export } from './components/index'
+// import { Merge, Delete, Export } from './components/index'
 import _ from 'lodash'
 export default {
   // import引入的组件需要注入到对象中才能使用
   components: {
-    Merge,
-    Delete,
-    Export
+    // Merge,
+    // Delete,
+    // Export
   },
   data() {
     // 这里存放数据
@@ -194,7 +194,7 @@ export default {
 </script>
 <style lang='scss' scoped>
 //@import url(); 引入公共css类
-.supplier-infomation-container {
+.role-manager-container {
   display: flex;
   flex: 1;
   height: 100%;
@@ -234,7 +234,7 @@ export default {
 </style>
 
 <style lang="scss" scoped>
-.supplier-infomation-container {
+.role-manager-container {
   .el-input {
     width: 200px;
     /deep/.el-input__inner {

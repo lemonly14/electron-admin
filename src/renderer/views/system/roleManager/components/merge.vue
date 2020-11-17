@@ -7,40 +7,40 @@
         <p class="tittle-word">{{ tittleName }}</p>
       </div>
       <div class="form-container">
-        <el-form ref="storeInfoFrom"
-                 :model="storeInfoFrom"
+        <el-form ref="roleInfoFrom"
+                 :model="roleInfoFrom"
                  :rules="rules"
                  label-width="110px">
-          <el-form-item label="所属店铺："
+          <el-form-item label="角色名称："
                         prop="store"
                         placeholder="请选择"> <!--表单域 model 字段，在使用 validate、resetFields 方法的情况下，该属性是必填的-->
-            <el-input v-model="storeInfoFrom.store" />
-            <el-option v-for="item in tpyeOptions"
-                       :key="item.value"
-                       :value="item.value" />
+            <el-select v-model="roleInfoFrom.roleName"
+                       placeholder="请选择">
+              <el-option v-for="item in tpyeOptions"
+                         :key="item.value"
+                         :value="item.value" />
+            </el-select>
           </el-form-item>
-          <el-form-item label="仓库编码："
-                        prop="warehouseCode">
-            <el-input v-model="storeInfoFrom.warehouseCode" />
+          <el-form-item label="角色说明："
+                        prop="remark">
+            <el-input v-model="roleInfoFrom.remark" />
           </el-form-item>
-          <el-form-item label="仓库名称："
-                        prop="warehouseName">
-            <el-input v-model="storeInfoFrom.warehouseName" />
+          <el-form-item label="打折权限："
+                        prop="discountAuth">
+            <el-switch v-model="roleInfoFrom.discountAuth"
+                       active-color="#13ce66"
+                       inactive-color="#ff4949" />
           </el-form-item>
-          <el-form-item label="负责人："
+          <el-form-item label="最低打折："
                         prop="warehouseCharity">
-            <el-input v-model="storeInfoFrom.warehouseCharity" />
-          </el-form-item>
-          <el-form-item label="备注："
-                        prop="remarks">
-            <el-input v-model="storeInfoFrom.remarks" />
+            <el-input v-model="roleInfoFrom.warehouseCharity" />
           </el-form-item>
         </el-form>
       </div>
       <span slot="footer">
         <el-button @click="close()">取 消</el-button>
         <el-button type="primary"
-                   @click="submitForm('storeInfoFrom')">确 定</el-button>
+                   @click="submitForm('roleInfoFrom')">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -67,7 +67,7 @@ export default {
     // 这里存放数据
     return {
       isShow: false,
-      storeInfoFrom: {
+      roleInfoFrom: {
         store: '',
         warehouseCode: '',
         warehouseName: '',
@@ -76,7 +76,13 @@ export default {
       },
       tpyeOptions: [
         {
-          value: '总店'
+          value: '系统管理员'
+        },
+        {
+          value: '店长'
+        },
+        {
+          value: '营业员'
         }
       ],
       rules: {
@@ -93,7 +99,7 @@ export default {
   watch: {
     editInfo: {
       handler(newInfo, oldInfo) {
-        this.storeInfoFrom = _.cloneDeep(newInfo)
+        this.roleInfoFrom = _.cloneDeep(newInfo)
       }, deep: true, immediate: true
     },
     tittleName(newName, oldName) {
@@ -101,9 +107,9 @@ export default {
       console.log('newName', newName)
     },
     isShow(newVal, oldVal) {
-      newVal && this.tittleName === '添加' && Object.keys(this.storeInfoFrom).forEach(key => { this.storeInfoFrom[key] = '' })
+      newVal && this.tittleName === '添加' && Object.keys(this.roleInfoFrom).forEach(key => { this.roleInfoFrom[key] = '' })
       this.$nextTick(() => {
-        this.$refs.storeInfoFrom.clearValidate()
+        this.$refs.roleInfoFrom.clearValidate()
       })
     }
   },
