@@ -11,66 +11,66 @@
                  :model="supplierInfoFrom"
                  :rules="rules"
                  label-width="110px">
-          <el-form-item label="供应商编码："
+          <el-form-item label="供应商编码"
                         prop="supplierCode"> <!--表单域 model 字段，在使用 validate、resetFields 方法的情况下，该属性是必填的-->
             <el-input v-model="supplierInfoFrom.supplierCode" />
           </el-form-item>
-          <el-form-item label="供应商名称："
+          <el-form-item label="供应商名称"
                         prop="supplierName">
             <el-input v-model="supplierInfoFrom.supplierName" />
           </el-form-item>
-          <el-form-item label="供应商地址："
+          <el-form-item label="供应商地址"
                         prop="supplierAddr">
             <el-input v-model="supplierInfoFrom.supplierAddr" />
           </el-form-item>
-          <el-form-item label="办公电话："
+          <el-form-item label="办公电话"
                         prop="phoneNumber">
             <el-input v-model="supplierInfoFrom.phoneNumber" />
           </el-form-item>
-          <el-form-item label="办公传真："
+          <el-form-item label="办公传真"
                         prop="officeFax">
             <el-input v-model="supplierInfoFrom.officeFax" />
           </el-form-item>
-          <el-form-item label="联系人："
+          <el-form-item label="联系人"
                         prop="contacts">
             <el-input v-model="supplierInfoFrom.contacts" />
           </el-form-item>
-          <el-form-item label="电子邮箱："
+          <el-form-item label="电子邮箱"
                         prop="email">
             <el-input v-model="supplierInfoFrom.email" />
           </el-form-item>
-          <el-form-item label="公司网址："
+          <el-form-item label="公司网址"
                         prop="companyWebsite">
             <el-input v-model="supplierInfoFrom.companyWebsite" />
           </el-form-item>
-          <el-form-item label="开户行："
+          <el-form-item label="开户行"
                         prop="bankDeposit">
             <el-input v-model="supplierInfoFrom.bankDeposit" />
           </el-form-item>
-          <el-form-item label="银行账号："
+          <el-form-item label="银行账号"
                         prop="accountNumber">
             <el-input v-model="supplierInfoFrom.accountNumber" />
           </el-form-item>
-          <el-form-item label="税号："
+          <el-form-item label="税号"
                         prop="dutyParagraph">
             <el-input v-model="supplierInfoFrom.dutyParagraph" />
           </el-form-item>
-          <el-form-item label="所属地区："
+          <el-form-item label="所属地区"
                         prop="regoin">
             <el-input v-model="supplierInfoFrom.regoin" />
           </el-form-item>
-          <el-form-item label="期初金额："
+          <el-form-item label="期初金额"
                         prop="openingAmount">
             <el-input-number v-model="supplierInfoFrom.openingAmount"
                              controls-position="right"
                              :min="1"
                              :max="10" />
           </el-form-item>
-          <el-form-item label="建档时间："
+          <el-form-item label="建档时间"
                         prop="filingTime">
             <el-input v-model="supplierInfoFrom.filingTime" />
           </el-form-item>
-          <el-form-item label="备注："
+          <el-form-item label="备注"
                         prop="remarks">
             <el-input v-model="supplierInfoFrom.remarks" />
           </el-form-item>

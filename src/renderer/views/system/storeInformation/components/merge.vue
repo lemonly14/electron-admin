@@ -10,31 +10,36 @@
         <el-form ref="storeInfoFrom"
                  :model="storeInfoFrom"
                  :rules="rules"
-                 label-width="110px">
-          <el-form-item label="所属店铺："
-                        prop="store"
-                        placeholder="请选择"> <!--表单域 model 字段，在使用 validate、resetFields 方法的情况下，该属性是必填的-->
-            <el-input v-model="storeInfoFrom.store" />
-            <el-option v-for="item in tpyeOptions"
-                       :key="item.value"
-                       :value="item.value" />
+                 label-width="80px">
+          <el-form-item label="所属店铺"
+                        prop="store"> <!--表单域 model 字段，在使用 validate、resetFields 方法的情况下，该属性是必填的-->
+            <el-select v-model="storeInfoFrom.store"
+                       placeholder="请选择">
+              <el-option v-for="item in tpyeOptions"
+                         :key="item.value"
+                         :value="item.value" />
+            </el-select>
           </el-form-item>
-          <el-form-item label="仓库编码："
+          <el-form-item label="仓库编码"
                         prop="warehouseCode">
             <el-input v-model="storeInfoFrom.warehouseCode" />
           </el-form-item>
-          <el-form-item label="仓库名称："
+          <el-form-item label="仓库名称"
                         prop="warehouseName">
             <el-input v-model="storeInfoFrom.warehouseName" />
           </el-form-item>
-          <el-form-item label="负责人："
+          <el-form-item label="负责人"
                         prop="warehouseCharity">
             <el-input v-model="storeInfoFrom.warehouseCharity" />
           </el-form-item>
-          <el-form-item label="备注："
+          <el-form-item label="备注"
                         prop="remarks">
             <el-input v-model="storeInfoFrom.remarks" />
           </el-form-item>
+          <el-from-item prop="checked">
+            <el-checkbox v-model="storeInfoFrom.checked"
+                         label="不参加交接班" />
+          </el-from-item>
         </el-form>
       </div>
       <span slot="footer">
@@ -72,7 +77,8 @@ export default {
         warehouseCode: '',
         warehouseName: '',
         warehouseCharity: '',
-        remarks: ''
+        remarks: '',
+        checked: false
       },
       tpyeOptions: [
         {
@@ -167,14 +173,14 @@ export default {
   }
   .form-container {
     .el-form {
-      width: 90%;
+      width: 70%;
       margin: auto;
       display: flex;
       flex-flow: row wrap;
       .el-form-item {
-        width: 50%;
+        width: 100%;
         /deep/.el-form-item__content {
-          min-width: 150px;
+          min-width: 100px;
         }
       }
       .el-select {
