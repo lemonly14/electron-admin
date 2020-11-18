@@ -203,6 +203,7 @@ export default {
 @import "@/styles/mixin.scss";
 /deep/.el-dialog{
   @include s-dialog;
+  margin-top: 15vh !important;
   height: 600px;
 }
 </style>

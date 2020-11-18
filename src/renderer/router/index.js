@@ -14,6 +14,7 @@ import nestedRouter from './modules/nested'
 import printRouter from './modules/print'
 import warehouseRouter from './modules/warehouse'
 import systemRouter from './modules/system'
+import peopleRouter from './modules/people'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -193,6 +194,7 @@ export const asyncRoutes = [
   nestedRouter,
   printRouter,
   systemRouter,
+  peopleRouter,
   warehouseRouter,
   tableRouter,
 

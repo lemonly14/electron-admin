@@ -1,7 +1,7 @@
 import Layout from '@/layout'
 
 const systemRouter = {
-  path: '/system',
+  path: '/peopleManager',
   component: Layout,
   redirect: 'noRedirect',
   name: 'People',
@@ -14,7 +14,7 @@ const systemRouter = {
       path: 'clerkManager',
       component: () => import('@/views/peopleManager/clerkManager'),
       name: 'ClerkManager',
-      meta: { title: '店员管理', noCache: true }
+      meta: { title: '人员管理', noCache: true }
     }
   ]
 }
