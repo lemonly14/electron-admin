@@ -7,41 +7,70 @@
         <p class="tittle-word">{{ tittleName }}</p>
       </div>
       <div class="form-container">
-        <el-form ref="basicFrom"
-                 :model="basicFrom"
+        <el-form ref="clerkFrom"
+                 :model="clerkFrom"
                  :rules="rules"
                  label-width="100px">
-          <el-form-item label="类别："
-                        prop="type">
-            <el-select v-model="basicFrom.type"
+          <el-form-item label="所属店铺"
+                        prop="shop">
+            <el-select v-model="clerkFrom.shop"
                        placeholder="请选择">
               <el-option v-for="item in tpyeOptions"
                          :key="item.value"
                          :value="item.value" />
             </el-select>
           </el-form-item>
-          <el-form-item label="名称"
-                        prop="name">
-            <el-input v-model="basicFrom.name" />
+          <el-form-item label="在职状态"
+                        prop="state">
+            <el-radio-group v-model="clerkFrom.state">
+              <el-radio :label="0">在职</el-radio>
+              <el-radio :label="1">离职</el-radio>
+            </el-radio-group>
           </el-form-item>
           <el-form-item label="编号"
                         prop="id">
-            <el-input v-model="basicFrom.id" />
+            <el-input v-model="clerkFrom.id" />
           </el-form-item>
-          <el-form-item label="排序"
-                        prop="sort">
-            <el-input v-model="basicFrom.sort" />
+          <el-form-item label="姓名"
+                        prop="name">
+            <el-input v-model="clerkFrom.name" />
+          </el-form-item>
+          <el-form-item label="性别"
+                        prop="sex">
+            <el-select v-model="clerkFrom.sex"
+                       placeholder="请选择">
+              <el-option v-for="item in sexOptions"
+                         :key="item.value"
+                         :value="item.value" />
+            </el-select>
+          </el-form-item>
+          <el-form-item label="电子邮箱"
+                        prop="mail">
+            <el-input v-model="clerkFrom.mail" />
+          </el-form-item>
+          <el-form-item label="联系电话"
+                        prop="telephone">
+            <el-input v-model="clerkFrom.telephone" />
+          </el-form-item>
+          <el-form-item label="家庭住址"
+                        prop="address">
+            <el-input v-model="clerkFrom.address" />
+          </el-form-item>
+          <el-form-item label="证件号"
+                        prop="idNum">
+            <el-input v-model="clerkFrom.idNum" />
           </el-form-item>
           <el-form-item label="备注"
-                        prop="remarks">
-            <el-input v-model="basicFrom.remarks" />
+                        prop="remark">
+            <el-input v-model="clerkFrom.remark"
+                      type="textarea" />
           </el-form-item>
         </el-form>
       </div>
       <span slot="footer">
         <el-button @click="close()">取 消</el-button>
         <el-button type="primary"
-                   @click="submitForm('basicFrom')">确 定</el-button>
+                   @click="submitForm('clerkFrom')">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -68,52 +97,42 @@ export default {
     // 这里存放数据
     return {
       isShow: false,
-      basicFrom: {
-        type: '',
-        id: '',
+      clerkFrom: {
         name: '',
-        sort: '',
-        remarks: ''
+        id: '',
+        sex: '',
+        state: '',
+        mail: '',
+        telephone: '',
+        address: '',
+        idNum: ''
       },
       tpyeOptions: [
         {
-          value: '类型'
+          value: '金万福总店'
         },
         {
-          value: '成色'
+          value: '金万福分店1'
         },
         {
-          value: '款式'
+          value: '金万福分店2'
         },
         {
-          value: '款号'
+          value: '鑫鑫总店'
         },
         {
-          value: '石料名称'
+          value: '鑫鑫分店1'
         },
         {
-          value: '切工工艺'
+          value: '鑫鑫分店2'
+        }
+      ],
+      sexOptions: [
+        {
+          value: '男'
         },
         {
-          value: '净度'
-        },
-        {
-          value: '产地'
-        },
-        {
-          value: '形状'
-        },
-        {
-          value: '单位'
-        },
-        {
-          value: '颜色'
-        },
-        {
-          value: '品牌'
-        },
-        {
-          value: '含量'
+          value: '女'
         }
       ],
       rules: {
@@ -131,7 +150,7 @@ export default {
   watch: {
     editInfo: {
       handler(newInfo, oldInfo) {
-        this.basicFrom = _.cloneDeep(newInfo)
+        this.clerkFrom = _.cloneDeep(newInfo)
       }, deep: true, immediate: true
     },
     tittleName(newName, oldName) {
@@ -139,9 +158,15 @@ export default {
       console.log('newName', newName)
     },
     isShow(newVal, oldVal) {
-      newVal && this.tittleName === '添加' && Object.keys(this.basicFrom).forEach(key => { this.basicFrom[key] = '' })
+      newVal && this.tittleName === '添加' && Object.keys(this.clerkFrom).forEach(key => {
+        if (key !== 'state') {
+          this.clerkFrom[key] = ''
+        } else {
+          this.clerkFrom[key] = 0
+        }
+      })
       this.$nextTick(() => {
-        this.$refs.basicFrom.clearValidate()
+        this.$refs.clerkFrom.clearValidate()
       })
     }
   },

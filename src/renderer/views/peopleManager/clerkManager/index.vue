@@ -28,18 +28,32 @@
                   @selection-change="handleSelect">
           <el-table-column type="selection"
                            width="55" />
-          <el-table-column prop="type"
-                           label="资料分类"
-                           width="180" />
+          <el-table-column prop="name"
+                           label="姓名"
+                           width="100" />
           <el-table-column prop="id"
                            label="编号"
+                           width="100" />
+          <el-table-column prop="sex"
+                           label="性别"
+                           width="100" />
+          <el-table-column prop="state"
+                           label="在职状态"
+                           width="100">
+            <template slot-scope="scope">
+              <el-tag :type="scope.row.state === 0 ? 'success':'danger'">{{ scope.row.state | formatState }}</el-tag>
+            </template>
+          </el-table-column>
+          <el-table-column prop="mail"
+                           label="电子邮箱"
                            width="180" />
-          <el-table-column prop="name"
-                           label="名称" />
-          <el-table-column prop="sortNum"
-                           label="排序" />
-          <el-table-column prop="remark"
-                           label="备注" />
+          <el-table-column prop="telephone"
+                           label="联系电话" />
+          <el-table-column prop="address"
+                           label="家庭住址" />
+          <el-table-column prop="idNum"
+                           label="证件号"
+                           width="200" />
           <el-table-column align="center"
                            fixed="right"
                            label="操作">
@@ -107,6 +121,15 @@ export default {
     Merge,
     Delete
   },
+  filters: {
+    formatState(state) {
+      if (state === 0) {
+        return '在职'
+      } else {
+        return '离职'
+      }
+    }
+  },
   data() {
     // 这里存放数据
     return {
@@ -118,29 +141,49 @@ export default {
         name: ''
       },
       tableData: [{
-        type: '类别',
+        shop: '金万福分店1',
+        name: '张三',
         id: '01',
-        name: '黄金按克',
-        sortNum: '0',
-        remark: ''
+        sex: '男',
+        state: 0,
+        mail: '104521543@qq.com',
+        telephone: '18850144246',
+        address: '大大撒旦撒旦',
+        idNum: '35012219851425457',
+        remark: '无'
       }, {
-        type: '类别',
+        shop: '金万福分店1',
+        name: '李四',
         id: '02',
-        name: '黄金按件',
-        sortNum: '0',
-        remark: ''
+        sex: '女',
+        state: 0,
+        mail: '104521543@qq.com',
+        telephone: '18850144246',
+        address: '大大撒旦撒旦',
+        idNum: '35012219851425457',
+        remark: '无'
       }, {
-        type: '类别',
+        shop: '金万福分店1',
+        name: '张丽',
         id: '03',
-        name: 'K金',
-        sortNum: '0',
-        remark: ''
+        sex: '女',
+        state: 1,
+        mail: '104521543@qq.com',
+        telephone: '18850144246',
+        address: '大大撒旦撒旦',
+        idNum: '35012219851425457',
+        remark: '无'
       }, {
-        type: '类别',
+        shop: '金万福分店1',
+        name: '王花',
         id: '04',
-        name: '钻石',
-        sortNum: '0',
-        remark: ''
+        sex: '女',
+        state: 1,
+        mail: '104521543@qq.com',
+        telephone: '18850144246',
+        address: '大大撒旦撒旦',
+        idNum: '35012219851425457',
+        remark: '无'
       }],
       tittleName: '',
       editInfo: {}
@@ -227,7 +270,7 @@ export default {
     .filter-container {
       width: 100%;
       flex: 0;
-      padding-bottom:0;
+      padding-bottom: 0;
       .filter-item {
         width: 200px;
         display: inline-block;
