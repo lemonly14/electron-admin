@@ -136,6 +136,7 @@ export default {
       currentPage: 1,
       length: 0,
       deleteType: '',
+
       infoParams: {
         idCode: '',
         name: ''
