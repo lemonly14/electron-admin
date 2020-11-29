@@ -5,8 +5,11 @@
       <div class="header-button">
         <el-button type="primary"
                    icon="el-icon-sell">新增销售单</el-button>
+
         <el-button type="success"
-                   icon="el-icon-wallet">结账</el-button>
+                   icon="el-icon-wallet"
+                   @click.native="getCollection('simple')"> 结账</el-button>
+
       </div>
       <div class="header-input">
         <div class="info-item">
@@ -65,6 +68,9 @@
                  icon="el-icon-connection">换货</el-button>
     </div>
     <SearchDialog ref="search" />
+    <PureGoldSale ref="pureGold" />
+    <SimpleCollection ref="simpleCollection" />
+    <BlendCollection ref="blendCollection" />
   </div>
 </template>
 
@@ -72,10 +78,16 @@
 // 这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 // 例如：import 《组件名称》 from '《组件路径》';
 import SearchDialog from './components/searchDialog'
+import PureGoldSale from './components/pureGoldSale'
+import SimpleCollection from './components/simpleCollection'
+import BlendCollection from './components/blendCollection'
 export default {
   // import引入的组件需要注入到对象中才能使用
   components: {
-    SearchDialog
+    SearchDialog,
+    PureGoldSale,
+    SimpleCollection,
+    BlendCollection
   },
   data() {
     // 这里存放数据
@@ -157,6 +169,9 @@ export default {
   methods: {
     searchItem() {
       this.$refs.search.isShow = true
+    },
+    getCollection(val) {
+      this.$refs[`${val}Collection`].isShow = true
     }
   }
 }
@@ -204,6 +219,15 @@ export default {
       .el-button {
         border-radius: 0px 3px 3px 0px;
         height: 36px;
+      }
+      .el-dropdown {
+        vertical-align: top;
+      }
+      .el-dropdown + .el-dropdown {
+        margin-left: 15px;
+      }
+      .el-icon-arrow-down {
+        font-size: 12px;
       }
     }
   }
