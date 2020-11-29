@@ -69,6 +69,8 @@
     </div>
     <SearchDialog ref="search" />
     <PureGoldSale ref="pureGold" />
+    <InlainSale ref="inlain" />
+    <JewelrySale ref="jewelry" />
     <SimpleCollection ref="simpleCollection" />
     <BlendCollection ref="blendCollection" />
   </div>
@@ -79,6 +81,8 @@
 // 例如：import 《组件名称》 from '《组件路径》';
 import SearchDialog from './components/searchDialog'
 import PureGoldSale from './components/pureGoldSale'
+import InlainSale from './components/inlainSale'
+import JewelrySale from './components/jewelrySale'
 import SimpleCollection from './components/simpleCollection'
 import BlendCollection from './components/blendCollection'
 export default {
@@ -86,6 +90,8 @@ export default {
   components: {
     SearchDialog,
     PureGoldSale,
+    InlainSale,
+    JewelrySale,
     SimpleCollection,
     BlendCollection
   },

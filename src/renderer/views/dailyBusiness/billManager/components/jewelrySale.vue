@@ -1,139 +1,161 @@
 <!--  -->
 <template>
-  <div class="pure-gold-sale">
+  <div class="jewelry-sale">
     <el-dialog :visible.sync="isShow"
                center>
       <div class="small-thing" />
       <div class="dialog-tittle">
         <p class="tittle-word">{{ tittleName }}</p>
       </div>
-      <div class="info-container">
-        <div class="img-container">
-          <el-image v-for="item in goldForm.imgList"
-                    :key="item"
-                    style="width: 100px; height: 100px"
-                    :src="item"
-                    :preview-src-list="goldForm.imgList" />
-        </div>
-        <div class="input-container">
-          <el-form ref="goldForm"
-                   :model="goldForm">
+      <el-form ref="jewelryForm"
+               :model="jewelryForm">
+        <div class="info-container">
+          <div class="img-container">
+            <el-image v-for="item in jewelryForm.imgList"
+                      :key="item"
+                      style="width: 100px; height: 100px"
+                      :src="item"
+                      :preview-src-list="jewelryForm.imgList" />
+          </div>
+          <div class="input-container">
+
             <el-card class="box-card">
               <div slot="header">
                 <span>基础信息</span>
               </div>
               <el-form-item label="编码"
                             prop="id">
-                <el-input v-model="goldForm.id"
+                <el-input v-model="jewelryForm.id"
                           disabled />
               </el-form-item>
               <el-form-item label="品名"
                             prop="product">
-                <el-input v-model="goldForm.id"
+                <el-input v-model="jewelryForm.id"
                           disabled />
               </el-form-item>
               <el-form-item label="产地"
                             prop="place">
-                <el-input v-model="goldForm.id"
+                <el-input v-model="jewelryForm.id"
                           disabled />
               </el-form-item>
               <el-form-item label="颜色"
                             prop="color">
-                <el-input v-model="goldForm.id"
+                <el-input v-model="jewelryForm.id"
                           disabled />
               </el-form-item>
               <el-form-item label="单位"
                             prop="uint">
-                <el-input v-model="goldForm.id"
+                <el-input v-model="jewelryForm.id"
                           disabled />
               </el-form-item>
               <el-form-item label="证书号"
                             prop="certificateNumber">
-                <el-input v-model="goldForm.id"
+                <el-input v-model="jewelryForm.id"
                           disabled />
               </el-form-item>
               <el-form-item label="款号"
                             prop="styleNum">
-                <el-input v-model="goldForm.id"
+                <el-input v-model="jewelryForm.id"
                           disabled />
               </el-form-item>
               <el-form-item label="圈号"
                             prop="size">
-                <el-input v-model="goldForm.id"
+                <el-input v-model="jewelryForm.id"
                           disabled />
               </el-form-item>
             </el-card>
-            <el-card class="box-card">
-              <div slot="header">
-                <span>金料信息</span>
-              </div>
-              <el-form-item label="金重"
-                            prop="weight">
-                <el-input-number v-model="goldForm.weight"
-                                 controls-position="right" />
-              </el-form-item>
-              <el-form-item label="工费"
-                            prop="fee">
-                <el-input-number v-model="goldForm.fee"
-                                 controls-position="right" />
-              </el-form-item>
-              <el-form-item label="单价"
-                            prop="price">
-                <el-input-number v-model="goldForm.price"
-                                 controls-position="right" />
-              </el-form-item>
-              <el-form-item label="工费计价方式"
-                            prop="chargingType">
-                <el-radio-group v-model="goldForm.chargingType">
-                  <el-radio :label="0">按件</el-radio>
-                  <el-radio :label="1">按重</el-radio>
-                </el-radio-group>
-              </el-form-item>
-            </el-card>
+            <div class="center-container">
+              <el-card class="box-card half-card">
+                <div slot="header">
+                  <span>金料信息</span>
+                </div>
+                <el-form-item label="金重"
+                              prop="weight">
+                  <el-input-number v-model="jewelryForm.weight"
+                                   controls-position="right" />
+                </el-form-item>
+                <el-form-item label="工费"
+                              prop="fee">
+                  <el-input-number v-model="jewelryForm.fee"
+                                   controls-position="right" />
+                </el-form-item>
+                <el-form-item label="单价"
+                              prop="price">
+                  <el-input-number v-model="jewelryForm.price"
+                                   controls-position="right" />
+                </el-form-item>
+                <el-form-item label="销售金额"
+                              prop="price">
+                  <el-input v-model="jewelryForm.salePrice" />
+                </el-form-item>
+              </el-card>
+              <el-card class="box-card half-card">
+                <div slot="header">
+                  <span>石料信息</span>
+                </div>
+                <el-form-item label="石重"
+                              prop="weight">
+                  <el-input-number v-model="jewelryForm.weight"
+                                   controls-position="right" />
+                </el-form-item>
+                <el-form-item label="单价"
+                              prop="fee">
+                  <el-input-number v-model="jewelryForm.fee"
+                                   controls-position="right" />
+                </el-form-item>
+                <el-form-item label="销售金额"
+                              prop="price">
+                  <el-input-number v-model="jewelryForm.salePrice"
+                                   controls-position="right" />
+                </el-form-item>
+              </el-card>
+            </div>
+
             <el-card class="box-card">
               <div slot="header">
                 <span>整件信息</span>
               </div>
               <el-form-item label="件重"
                             prop="pieceWeight">
-                <el-input-number v-model="goldForm.pieceWeight" />
+                <el-input-number v-model="jewelryForm.pieceWeight" />
               </el-form-item>
               <el-form-item label="销售单价"
                             prop="salePrice">
-                <el-input-number v-model="goldForm.salePrice"
+                <el-input-number v-model="jewelryForm.salePrice"
                                  controls-position="right"
                                  @change="computeMoney" />
               </el-form-item>
               <el-form-item label="数量"
                             prop="num">
-                <el-input-number v-model="goldForm.num"
+                <el-input-number v-model="jewelryForm.num"
                                  controls-position="right"
                                  @change="computeMoney" />
               </el-form-item>
               <el-form-item label="折扣"
                             prop="discount">
-                <el-input-number v-model="goldForm.discount"
+                <el-input-number v-model="jewelryForm.discount"
                                  controls-position="right"
                                  @change="computeMoney" />
               </el-form-item>
               <el-form-item label="实售单价"
                             prop="realPrice">
-                <el-input-number v-model="goldForm.realPrice"
+                <el-input-number v-model="jewelryForm.realPrice"
                                  controls-position="right" />
               </el-form-item>
               <el-form-item label="总金额"
                             prop="totalPrice">
-                <el-input v-model="goldForm.totalPrice" />
+                <el-input v-model="jewelryForm.totalPrice" />
               </el-form-item>
               <el-form-item label="备注"
                             prop="remark">
-                <el-input v-model="goldForm.remark"
+                <el-input v-model="jewelryForm.remark"
                           type="textarea" />
               </el-form-item>
             </el-card>
-          </el-form>
+
+          </div>
         </div>
-      </div>
+      </el-form>
       <span slot="footer">
         <el-button @click="close()">取 消</el-button>
         <el-button type="primary"
@@ -154,9 +176,9 @@ export default {
   data() {
     // 这里存放数据
     return {
-      tittleName: '素金销售',
-      isShow: false,
-      goldForm: {
+      tittleName: '饰品销售',
+      isShow: true,
+      jewelryForm: {
         imgList: [
           'https://fuss10.elemecdn.com/1/8e/aeffeb4de74e2fde4bd74fc7b4486jpeg.jpeg'
         ]
@@ -185,13 +207,13 @@ export default {
   // 方法集合
   methods: {
     computeMoney() {
-      const oneCount = this.goldForm.salePrice * this.goldForm.discount
-      if (this.goldForm.salePrice && this.goldForm.discount) {
-        this.$set(this.goldForm, 'realPrice', oneCount)
+      const oneCount = this.jewelryForm.salePrice * this.jewelryForm.discount
+      if (this.jewelryForm.salePrice && this.jewelryForm.discount) {
+        this.$set(this.jewelryForm, 'realPrice', oneCount)
       }
 
-      if (this.goldForm.salePrice && this.goldForm.discount && this.goldForm.num) {
-        this.$set(this.goldForm, 'totalPrice', oneCount * this.goldForm.num)
+      if (this.jewelryForm.salePrice && this.jewelryForm.discount && this.jewelryForm.num) {
+        this.$set(this.jewelryForm, 'totalPrice', oneCount * this.jewelryForm.num)
       }
     }
   }
@@ -200,7 +222,7 @@ export default {
 <style lang='scss' scoped>
 //@import url(); 引入公共css类
 @import "@/styles/mixin.scss";
-.pure-gold-sale {
+.jewelry-sale {
   .small-thing {
     @include small-thing;
   }
@@ -216,6 +238,10 @@ export default {
     }
     .input-container {
       width: 100%;
+      .center-container {
+        display: flex;
+        justify-content: space-between;
+      }
       .box-card {
         margin-bottom: 10px;
         span {
@@ -223,6 +249,10 @@ export default {
           font-weight: 350;
           color: #0096ff;
         }
+      }
+      .half-card {
+        width: 49%;
+        /* display: inline-flex; */
       }
     }
   }
@@ -232,7 +262,7 @@ export default {
 <style lang='scss' scoped>
 //@import url(); 引入公共css类
 @import "@/styles/mixin.scss";
-.pure-gold-sale {
+.jewelry-sale {
   /deep/.el-dialog {
     @include xl-dialog;
   }

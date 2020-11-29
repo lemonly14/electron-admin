@@ -83,7 +83,7 @@ export default {
   data() {
     // 这里存放数据
     return {
-      isShow: true,
+      isShow: false,
       tittleName: '单一收款',
       collectionForm: {},
       payWays: [
