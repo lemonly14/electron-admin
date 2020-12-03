@@ -177,7 +177,7 @@ export default {
     // 这里存放数据
     return {
       tittleName: '饰品销售',
-      isShow: true,
+      isShow: false,
       jewelryForm: {
         imgList: [
           'https://fuss10.elemecdn.com/1/8e/aeffeb4de74e2fde4bd74fc7b4486jpeg.jpeg'

@@ -65,7 +65,10 @@
     </el-card>
     <div class="footer">
       <el-button type="warning"
-                 icon="el-icon-connection">换货</el-button>
+                 icon="el-icon-connection"
+                 @click="getChange">换货</el-button>
+      <ExchangeGood v-show="isChange"
+                    ref="excahngeGood" />
     </div>
     <SearchDialog ref="search" />
     <PureGoldSale ref="pureGold" />
@@ -73,6 +76,7 @@
     <JewelrySale ref="jewelry" />
     <SimpleCollection ref="simpleCollection" />
     <BlendCollection ref="blendCollection" />
+    <ExchangePureGold ref="exchangePureGold" />
   </div>
 </template>
 
@@ -85,6 +89,8 @@ import InlainSale from './components/inlainSale'
 import JewelrySale from './components/jewelrySale'
 import SimpleCollection from './components/simpleCollection'
 import BlendCollection from './components/blendCollection'
+import ExchangeGood from './components/exchangeGood'
+import ExchangePureGold from './components/exchangePureGold'
 export default {
   // import引入的组件需要注入到对象中才能使用
   components: {
@@ -93,7 +99,9 @@ export default {
     InlainSale,
     JewelrySale,
     SimpleCollection,
-    BlendCollection
+    BlendCollection,
+    ExchangeGood,
+    ExchangePureGold
   },
   data() {
     // 这里存放数据
@@ -149,7 +157,8 @@ export default {
         handInch: '三寸',
         style: '111111',
         unit: '19.00'
-      }]
+      }],
+      isChange: false
     }
   },
   // 监听属性 类似于data概念
@@ -178,6 +187,9 @@ export default {
     },
     getCollection(val) {
       this.$refs[`${val}Collection`].isShow = true
+    },
+    getChange() {
+      this.isChange = !this.isChange
     }
   }
 }
@@ -187,6 +199,7 @@ export default {
 .business-container {
   height: 100%;
   width: 100%;
+  overflow: auto;
   .header {
     .header-button {
       width: 100%;
