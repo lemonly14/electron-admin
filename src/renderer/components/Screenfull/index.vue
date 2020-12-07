@@ -1,13 +1,13 @@
 <template>
-  <div>
-    <svg-icon
-      :icon-class="isFullscreen?'exit-fullscreen':'fullscreen'"
-      @click="click" />
+  <div id="full-screen"
+       @click="click">
+    <svg-icon :icon-class="isFullscreen?'exit-fullscreen':'fullscreen'" />
   </div>
 </template>
 
 <script>
 import screenfull from 'screenfull'
+// import { fireKeyEvent } from '@/utils'
 
 export default {
   name: 'Screenfull',
@@ -17,34 +17,26 @@ export default {
     }
   },
   mounted() {
-    this.init()
+    document.addEventListener('keydown', (e) => {
+      switch (e.keyCode) {
+        case 122:
+          this.change()
+          // screenfull.toggle()
+          break
+      }
+    })
   },
   beforeDestroy() {
     this.destroy()
   },
   methods: {
     click() {
-      if (!screenfull.enabled) {
-        this.$message({
-          message: 'you browser can not work',
-          type: 'warning'
-        })
-        return false
-      }
+      // fireKeyEvent(document.getElementById('full-screen'), 'keydown', 122)
+      this.change()
       screenfull.toggle()
     },
     change() {
-      this.isFullscreen = screenfull.isFullscreen
-    },
-    init() {
-      if (screenfull.enabled) {
-        screenfull.on('change', this.change)
-      }
-    },
-    destroy() {
-      if (screenfull.enabled) {
-        screenfull.off('change', this.change)
-      }
+      this.isFullscreen = !this.isFullscreen
     }
   }
 }
@@ -54,7 +46,7 @@ export default {
 .screenfull-svg {
   display: inline-block;
   cursor: pointer;
-  fill: #5a5e66;;
+  fill: #5a5e66;
   width: 20px;
   height: 20px;
   vertical-align: 10px;

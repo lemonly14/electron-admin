@@ -48,7 +48,6 @@ export default {
       this.searchPool = this.generateRoutes(this.routes)
     },
     searchPool(list) {
-      console.log('看看初始化的list', list)
       this.initFuse(list)
     },
     show(value) {
@@ -60,7 +59,6 @@ export default {
     }
   },
   mounted() {
-    console.log('this.routes', this.routes)
     this.searchPool = this.generateRoutes(this.routes)
   },
   methods: {
@@ -137,7 +135,6 @@ export default {
     querySearch(query) {
       if (query !== '') {
         this.options = this.fuse.search(query)
-        console.log('options', this.options)
       } else {
         this.options = []
       }
