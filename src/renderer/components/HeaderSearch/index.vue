@@ -1,27 +1,22 @@
 <template>
-  <div
-    :class="{'show':show}"
-    class="header-search">
-    <svg-icon
-      class-name="search-icon"
-      icon-class="search"
-      @click.stop="click" />
-    <el-select
-      ref="headerSearchSelect"
-      v-model="search"
-      :remote-method="querySearch"
-      filterable
-      default-first-option
-      remote
-      placeholder="Search"
-      class="header-search-select"
-      @change="change"
-    >
-      <el-option
-        v-for="item in options"
-        :key="item.path"
-        :value="item"
-        :label="item.title.join(' > ')" />
+  <div :class="{'show':show}"
+       class="header-search">
+    <svg-icon class-name="search-icon"
+              icon-class="search"
+              @click.stop="click" />
+    <el-select ref="headerSearchSelect"
+               v-model="search"
+               :remote-method="querySearch"
+               filterable
+               default-first-option
+               remote
+               placeholder="Search"
+               class="header-search-select"
+               @change="change">
+      <el-option v-for="item in options"
+                 :key="item.path"
+                 :value="item"
+                 :label="item.item.title.join(' > ')" />
     </el-select>
   </div>
 </template>
@@ -31,7 +26,7 @@
 // make search results more in line with expectations
 import Fuse from 'fuse.js'
 import path from 'path'
-
+import i18n from '@/lang'
 export default {
   name: 'HeaderSearch',
   data() {
@@ -53,6 +48,7 @@ export default {
       this.searchPool = this.generateRoutes(this.routes)
     },
     searchPool(list) {
+      console.log('看看初始化的list', list)
       this.initFuse(list)
     },
     show(value) {
@@ -64,6 +60,7 @@ export default {
     }
   },
   mounted() {
+    console.log('this.routes', this.routes)
     this.searchPool = this.generateRoutes(this.routes)
   },
   methods: {
@@ -79,7 +76,7 @@ export default {
       this.show = false
     },
     change(val) {
-      this.$router.push(val.path)
+      this.$router.push(val.item.path)
       this.search = ''
       this.options = []
       this.$nextTick(() => {
@@ -107,18 +104,18 @@ export default {
     // And generate the internationalized title
     generateRoutes(routes, basePath = '/', prefixTitle = []) {
       let res = []
-
       for (const router of routes) {
         // skip hidden router
         if (router.hidden) { continue }
 
         const data = {
-          path: path.resolve(basePath, router.path),
+          path: path.join(basePath, router.path).replace(/\\/g, '/'),
           title: [...prefixTitle]
         }
 
         if (router.meta && router.meta.title) {
-          data.title = [...data.title, router.meta.title]
+          const i18ntitle = i18n.t(`${router.meta.title}`)
+          data.title = [...data.title, i18ntitle]
 
           if (router.redirect !== 'noRedirect') {
             // only push the routes with title
@@ -140,6 +137,7 @@ export default {
     querySearch(query) {
       if (query !== '') {
         this.options = this.fuse.search(query)
+        console.log('options', this.options)
       } else {
         this.options = []
       }
