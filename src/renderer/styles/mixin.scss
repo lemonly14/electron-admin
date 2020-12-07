@@ -94,8 +94,30 @@
   // border-radius: 20px;
 }
 
-@mixin xl-dialog {
+@mixin xl-dialog
+{
   width: 75% !important;
   margin-top: 5vh !important;
   // border-radius: 20px;
+}
+
+@mixin stone-list {
+  .el-form-item {
+    display: flex;
+    margin-right: 5px;
+    width: 15%;
+    min-width: 115px;
+    max-width: 220px;
+  }
+  .el-input,
+  .el-select,
+  .el-input-number {
+    width: 100%;
+  }
+  /deep/.el-input-number__decrease {
+    width: 20px;
+  }
+  /deep/.el-input-number__increase {
+    width: 20px;
+  }
 }

@@ -22,6 +22,10 @@ import './utils/error-log' // error log
 
 import * as filters from './filters' // global filters
 
+// import * as fundebug from 'fundebug-javascript'
+// import fundebugVue from 'fundebug-vue'
+// fundebug.apikey = 'c360cab0ddad7dbf6cb50f906d0723b1433203e5589d0454034b56bfa2bf68d7'
+// fundebugVue(fundebug, Vue)
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api

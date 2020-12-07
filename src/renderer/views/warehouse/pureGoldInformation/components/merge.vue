@@ -11,46 +11,46 @@
              :model="pureGoldFrom"
              :rules="rules">
       <div class="left-container">
-        <el-card class="box-card">
-          <div slot="header"
-               class="clearfix">
+        <el-card id="basic-card"
+                 class="box-card">
+          <div slot="header">
             <span>基础信息</span>
           </div>
-          <el-row :gutter="20">
-            <el-col v-for="item in basicGather"
-                    :key="item.prop"
-                    :span="8">
-              <el-form-item :label="item.label"
-                            :prop="item.prop">
-                <el-input v-if="item.type === 'input'"
-                          v-model="pureGoldFrom[item.prop]"
-                          :placeholder="item.placeholder" />
-                <el-select v-if="item.type === 'select'"
-                           v-model="pureGoldFrom[item.prop]"
-                           filterable
-                           placeholder="请选择">
-                  <el-option v-for="option in optionsMap[item.options]"
-                             :key="option.value"
-                             :label="option.label"
-                             :value="option.value" />
-                </el-select>
-                <el-date-picker v-if="item.type === 'datePicker'"
-                                v-model="pureGoldFrom[item.prop]"
-                                type="date"
-                                placeholder="选择日期" />
-              </el-form-item>
-            </el-col>
-          </el-row>
+          <el-form-item v-for="item in basicGather"
+                        :key="item.prop"
+                        :label="item.label"
+                        :prop="item.prop">
+            <el-input v-if="item.type === 'input'"
+                      v-model="pureGoldFrom[item.prop]"
+                      :placeholder="item.placeholder" />
+            <el-select v-if="item.type === 'select'"
+                       v-model="pureGoldFrom[item.prop]"
+                       filterable
+                       placeholder="请选择">
+              <el-option v-for="option in optionsMap[item.options]"
+                         :key="option.value"
+                         :label="option.label"
+                         :value="option.value" />
+            </el-select>
+            <el-date-picker v-if="item.type === 'datePicker'"
+                            v-model="pureGoldFrom[item.prop]"
+                            type="date"
+                            placeholder="选择日期" />
+          </el-form-item>
+          <div class="footer">
+            <el-button type="primary"
+                       @click="handleHide(hideType)">{{ hideType }}</el-button>
+          </div>
 
         </el-card>
         <el-card class="box-card">
-          <div slot="header"
-               class="clearfix">
+          <div slot="header">
             <span>金价信息</span>
           </div>
           <div class="count-info">
             <el-form-item v-for="item in measureGather"
                           :key="item.prop"
+                          :prop="item.prop"
                           :label="item.label">
               <el-input-number v-if="item.type === 'inputNumber'"
                                v-model="pureGoldFrom[item.prop]"
@@ -66,49 +66,37 @@
               </el-radio-group>
             </el-form-item>
           </div>
-          <div class="label-info">
-            <el-form-item v-for="item in labelGather"
-                          :key="item.prop"
-                          :label="item.label">
-              <el-input-number v-model="pureGoldFrom[item.prop]"
-                               :placeholder="item.placeholder"
-                               controls-position="right"
-                               :min="0"
-                               @change="handleChangeNum" />
-            </el-form-item>
-          </div>
         </el-card>
 
       </div>
       <div class="right-container">
-        <div class="img-container">
-          <el-upload
-            action="https://jsonplaceholder.typicode.com/posts/"
-            list-type="picture-card"
-            :on-preview="handlePictureCardPreview"
-            :on-remove="handleRemove">
-            <i class="el-icon-plus" />
-          </el-upload>
-          <el-dialog :visible.sync="dialogVisible">
-            <img width="100%"
-                 :src="dialogImageUrl"
-                 alt="">
-          </el-dialog>
-          <el-dialog :visible.sync="dialogVisible">
-            <img width="100%"
-                 :src="dialogImageUrl"
-                 alt="">
-          </el-dialog>
-        </div>
-        <div class="footer">
-          <el-button @click="submitForm('queryTotal')">确定再添加</el-button>
-          <el-button
-            type="primary"
-            @click="submitForm('queryTotal')"
-          >确 定</el-button>
-        </div>
-      </div>
+        <el-card>
+          <div class="img-container">
+            <el-upload action="https://jsonplaceholder.typicode.com/posts/"
+                       list-type="picture-card"
+                       :on-preview="handlePictureCardPreview"
+                       :on-remove="handleRemove">
+              <i class="el-icon-plus" />
+            </el-upload>
+            <el-dialog :visible.sync="dialogVisible">
+              <img width="100%"
+                   :src="dialogImageUrl"
+                   alt="">
+            </el-dialog>
+            <el-dialog :visible.sync="dialogVisible">
+              <img width="100%"
+                   :src="dialogImageUrl"
+                   alt="">
+            </el-dialog>
+          </div>
+          <div class="footer">
+            <el-button @click="submitForm('queryTotal')">确定再添加</el-button>
+            <el-button type="primary"
+                       @click="submitForm('queryTotal')">确 定</el-button>
+          </div>
+        </el-card>
 
+      </div>
     </el-form>
 
   </div>
@@ -127,6 +115,7 @@ export default {
     return {
       dialogImageUrl: '',
       dialogVisible: false,
+      hideType: '更多',
       pureGoldFrom: {
         date: new Date().getTime()
       },
@@ -138,6 +127,7 @@ export default {
       chargingTypes: [],
       rules: {
         shop: [{ required: true, message: '请选择收货店铺', trigger: 'change' }],
+        id: [{ required: true, message: '请选择收货店铺', trigger: 'change' }],
         store: [{ required: true, message: '请选择收货仓库', trigger: 'change' }],
         supplier: [{ required: true, message: '请选择供应商名称', trigger: 'change' }],
         date: [{ required: true, message: '请填写采购日期', trigger: 'change' }],
@@ -166,7 +156,14 @@ export default {
   },
   // 生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {
-
+    const basicDom = document.getElementById('basic-card')
+    const formItemDom = basicDom.getElementsByClassName('el-form-item')
+    this.noRequireDom = Array.from(formItemDom).filter((item, index) => {
+      return item.className === 'el-form-item el-form-item--medium'
+    })
+    this.noRequireDom.forEach((item, index) => {
+      item.style.display = 'none'
+    })
   },
   beforeCreate() { }, // 生命周期 - 创建之前
   beforeMount() { }, // 生命周期 - 挂载之前
@@ -180,6 +177,26 @@ export default {
     goBack() {
       this.$emit('go-back')
     },
+    handleHide(type) {
+      console.log('type', type)
+      type === '更多' ? this.show() : this.hide()
+    },
+    hide() {
+      this.hideType = '更多'
+      this.noRequireDom.forEach((item, index) => {
+        item.style.display = 'none'
+      })
+      const basicCard = document.getElementById('basic-card')
+      basicCard.style.height = '310px'
+    },
+    show() {
+      this.hideType = '收起'
+      this.noRequireDom.forEach((item, index) => {
+        item.style.display = ''
+      })
+      const basicCard = document.getElementById('basic-card')
+      basicCard.style.height = '491px'
+    },
     handleRemove(file, fileList) {
       console.log(file, fileList)
     },
@@ -191,96 +208,89 @@ export default {
       console.log('name', name)
       console.log('val', val)
       console.log('pureGoldFrom', this.pureGoldFrom)
+    },
+    submitForm() {
+      console.log('看看', this.pureGoldFrom)
     }
   }
 }
 </script>
 <style lang='scss' scoped>
 //@import url(); 引入公共css类
-.merge-header {
-  min-height: 50px;
-  font-size: 35px;
-  color: #0096ff;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  .back-btn {
-    position: absolute;
-    right: 20px;
-  }
-}
-.left-container {
-  width: 70%;
-  display: inline-block;
-  .info-item {
-    width: 260px;
-    margin: 0 40px;
-  }
-
-  .text {
-    font-size: 14px;
-  }
-
-  .item {
-    margin-bottom: 18px;
-  }
-
-  .clearfix:before,
-  .clearfix:after {
-    display: table;
-    content: "";
-  }
-  .clearfix:after {
-    clear: both;
-  }
-
-  .box-card {
-    width: 100%;
-    .count-info{
-      width: 66%;
-      display: flex;
-      flex-flow: wrap;
-    }
-    .label-info{
-      width: 33%;
-      display: flex;
-      flex-flow: wrap;
+.pure-gold-merge-container {
+  .merge-header {
+    min-height: 50px;
+    font-size: 35px;
+    color: #0096ff;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .back-btn {
+      position: absolute;
+      right: 20px;
     }
   }
-}
-.right-container{
-  width: 30%;
-  display: inline-block;
-  .img-container{
-    width: 100%;
-    display: flex;
-    justify-content: center;
+  .left-container {
+    width: 70%;
+    display: inline-block;
+    .box-card {
+      width: 100%;
+      position: relative;
+      .footer {
+        flex: auto;
+        width: 100%;
+        display: flex;
+        flex-direction: row-reverse;
+      }
+      .count-info {
+        display: flex;
+        flex-flow: wrap;
+      }
+    }
+    #basic-card {
+      height: 310px;
+      transition: height 0.6s;
+    }
+    #basic-card::-webkit-scrollbar {
+      display: none;
+    }
   }
-  .footer{
-    display: flex;
-    justify-content: center;
-    margin-top: 50px;
+  .right-container {
+    width: 30%;
+    padding: 0 20px;
+    display: inline-block;
+    .img-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+    .footer {
+      display: flex;
+      justify-content: center;
+      margin-top: 50px;
+      width: 100%;
+    }
   }
 }
 </style>
 
 <style lang="scss" scoped>
 .pure-gold-merge-container {
-  .el-col{
-    min-width: 300px;
-  }
-  .el-form{
+  .el-form {
     display: flex;
     padding: 30px 50px;
   }
-  .el-card{
+  .el-card {
     margin-bottom: 40px;
     overflow: auto;
   }
   .left-container {
-    .el-form-item{
-      /deep/.el-form-item__label{
+    .el-form-item {
+      width: 32%;
+      min-width: 250px;
+      max-width: 390px;
+      /deep/.el-form-item__label {
         width: 115px;
       }
     }
@@ -288,29 +298,12 @@ export default {
       display: flex;
       flex-flow: wrap;
     }
-    .el-input {
-     width: calc(100% - 115px)
-    }
-    .el-select{
+    .el-input,
+    .el-select,
+    .el-select,
+    .el-radio-group,
+    .el-input-number {
       width: calc(100% - 115px);
-    }
-    .el-input-number{
-      width: calc(100% - 115px);
-    }
-    .el-radio-group{
-      width: calc(100% - 115px);
-    }
-  }
-  .count-info{
-    .el-form-item{
-      width: 50%;
-      min-width: 300px;
-    }
-  }
-  .label-info{
-    .el-form-item{
-      width: 100%;
-      min-width: 300px;
     }
   }
 }

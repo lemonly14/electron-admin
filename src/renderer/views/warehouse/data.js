@@ -39,6 +39,30 @@ const basicGather = [
     default: ''
   },
   {
+    label: '类别：',
+    prop: 'style',
+    placeholder: '',
+    type: 'select',
+    options: 'styles',
+    default: ''
+  },
+  {
+    label: '款式：',
+    prop: 'fashion',
+    placeholder: '',
+    options: 'styles',
+    type: 'select',
+    default: ''
+  },
+  {
+    label: '成色：',
+    prop: 'fineness',
+    placeholder: '',
+    type: 'select',
+    options: 'styles',
+    default: ''
+  },
+  {
     label: '单位：',
     prop: 'unit',
     placeholder: '',
@@ -53,14 +77,7 @@ const basicGather = [
     type: 'input',
     default: ''
   },
-  {
-    label: '类别：',
-    prop: 'style',
-    placeholder: '',
-    type: 'select',
-    options: 'styles',
-    default: ''
-  },
+
   {
     label: '品牌：',
     prop: 'brand',
@@ -76,14 +93,7 @@ const basicGather = [
     type: 'input',
     default: ''
   },
-  {
-    label: '成色：',
-    prop: 'fineness',
-    placeholder: '',
-    type: 'select',
-    options: 'styles',
-    default: ''
-  },
+
   {
     label: '证书号：',
     prop: 'certificateNumber',
@@ -99,14 +109,7 @@ const basicGather = [
     options: 'styles',
     default: ''
   },
-  {
-    label: '款式：',
-    prop: 'fashion',
-    placeholder: '',
-    options: 'styles',
-    type: 'select',
-    default: ''
-  },
+
   {
     label: '产地：',
     prop: 'place',
@@ -180,6 +183,27 @@ const measureGather = [
     placeholder: '',
     type: 'inputNumber',
     default: 1
+  },
+  {
+    label: '标签工费：',
+    prop: 'labelCost',
+    placeholder: '',
+    type: 'inputNumber',
+    default: 1
+  },
+  {
+    label: '销售系数：',
+    prop: 'priceRatio',
+    placeholder: '',
+    type: 'inputNumber',
+    default: 1
+  },
+  {
+    label: '标签价：',
+    prop: 'labelPrice',
+    placeholder: '',
+    type: 'inputNumber',
+    default: 1
   }
 ]
 
@@ -194,6 +218,13 @@ const shortMeasureGather = [
   {
     label: '工费：',
     prop: 'fee',
+    placeholder: '',
+    type: 'inputNumber',
+    default: 1
+  },
+  {
+    label: '标签工费：',
+    prop: 'labelCost',
     placeholder: '',
     type: 'inputNumber',
     default: 1
@@ -218,42 +249,31 @@ const shortMeasureGather = [
 const labelGather = [
   {
     label: '标签工费：',
-    prop: 'chargingType',
+    prop: 'labelCost',
     placeholder: '',
     type: 'inputNumber',
     default: 1
   },
   {
-    label: '进货数量：',
-    prop: 'count',
+    label: '销售系数：',
+    prop: 'priceRatio',
     placeholder: '',
     type: 'inputNumber',
     default: 1
   },
   {
-    label: '总成本：',
-    prop: 'totalCost',
+    label: '标签价：',
+    prop: 'labelPrice',
     placeholder: '',
     type: 'inputNumber',
     default: 1
-  }
-]
-
-const shortLabelGather = [
-  {
-    label: '标签工费：',
-    prop: 'chargingType',
-    placeholder: '',
-    type: 'inputNumber',
-    default: 1
-
   }
 ]
 
 const stoneInfos = [
   [
     {
-      label: '主石：',
+      label: '',
       prop: 'mainStone',
       placeholder: '主石',
       type: 'select',
@@ -316,7 +336,7 @@ const stoneInfos = [
     {
       label: '',
       prop: 'stoneLabelPrice',
-      placeholder: '石标签价',
+      placeholder: '标签价',
       type: 'inputNumber',
       default: 1
     }
@@ -405,4 +425,4 @@ const chargingTypes = [
   }
 ]
 
-export { basicGather, units, styles, chargingTypes, measureGather, shortMeasureGather, labelGather, shortLabelGather, stoneInfos, wholeGather }
+export { basicGather, units, styles, chargingTypes, measureGather, shortMeasureGather, labelGather, stoneInfos, wholeGather }
