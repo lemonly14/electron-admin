@@ -342,6 +342,7 @@ const components = {
     updateBarcodeData({ commit, state }, data) {
       const current = state.storeList.find((item) => item.id === state.activeComponent.id || '')
       const { format, lineWidth, bodyHeight, displayValue, fontSize } = current.props
+      console.log('current.props', current.props)
       try {
         barcode(`.${current.id}`, data, {
           format,

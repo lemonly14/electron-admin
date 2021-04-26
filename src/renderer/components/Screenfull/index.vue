@@ -27,7 +27,7 @@ export default {
     })
   },
   beforeDestroy() {
-    this.destroy()
+    // this.destroy()
   },
   methods: {
     click() {

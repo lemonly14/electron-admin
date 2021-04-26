@@ -178,12 +178,12 @@ export default {
     display: flex;
     justify-content: space-between;
   }
-  /deep/.el-form-item__label {
+  ::v-deep.el-form-item__label {
     width: 100px;
   }
 }
 .pay-type {
-  /deep/.el-form-item__content {
+  ::v-deep.el-form-item__content {
     display: flex !important;
     justify-content: space-between;
     width: 100%;
@@ -196,10 +196,10 @@ export default {
     width: 80px;
   }
 }
-/deep/.el-dialog {
+::v-deep.el-dialog {
   margin-top: 5vh !important;
 }
-/deep/.el-dialog__body {
+::v-deep.el-dialog__body {
   height: 80vh;
   overflow: auto;
 }

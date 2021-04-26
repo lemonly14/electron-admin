@@ -27,6 +27,12 @@ const warehouseRouter = {
       component: () => import('@/views/warehouse/jewelryInformation'),
       name: 'Jewelry',
       meta: { title: '饰品入库管理', noCache: true }
+    },
+    {
+      path: 'totalInformation',
+      component: () => import('@/views/warehouse/totalInformation'),
+      name: 'totalTreasure',
+      meta: { title: '实时库存管理', noCache: true }
     }
   ]
 }

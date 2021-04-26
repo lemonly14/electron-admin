@@ -127,10 +127,10 @@ export default {
       chargingTypes: [],
       rules: {
         shop: [{ required: true, message: '请选择收货店铺', trigger: 'change' }],
-        id: [{ required: true, message: '请选择收货店铺', trigger: 'change' }],
+        id: [{ required: true, message: '请填写编码', trigger: 'change' }],
         store: [{ required: true, message: '请选择收货仓库', trigger: 'change' }],
+        datePicker: [{ required: true, message: '请选择采购日期', trigger: 'change' }],
         supplier: [{ required: true, message: '请选择供应商名称', trigger: 'change' }],
-        date: [{ required: true, message: '请填写采购日期', trigger: 'change' }],
         style: [{ required: true, message: '请选择供类别', trigger: 'change' }],
         fineness: [{ required: true, message: '请选择成色', trigger: 'change' }],
         fashion: [{ required: true, message: '请选择款式', trigger: 'change' }]
@@ -290,11 +290,11 @@ export default {
       width: 32%;
       min-width: 250px;
       max-width: 390px;
-      /deep/.el-form-item__label {
+      ::v-deep.el-form-item__label {
         width: 115px;
       }
     }
-    /deep/.el-card__body {
+    ::v-deep.el-card__body {
       display: flex;
       flex-flow: wrap;
     }

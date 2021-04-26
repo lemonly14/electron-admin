@@ -224,7 +224,7 @@ export default {
   .dialog-tittle {
     @include dialog-tittle;
   }
-  /deep/.el-dialog__footer {
+  ::v-deep.el-dialog__footer {
     display: flex;
     justify-content: center;
   }
@@ -236,7 +236,7 @@ export default {
       flex-flow: row wrap;
       .el-form-item {
         width: 50%;
-        /deep/.el-form-item__content {
+        ::v-deep.el-form-item__content {
           min-width: 150px;
         }
       }

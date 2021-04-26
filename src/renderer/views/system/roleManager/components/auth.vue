@@ -188,7 +188,7 @@ export default {
   .dialog-tittle {
     @include dialog-tittle;
   }
-  /deep/.el-dialog__footer {
+  ::v-deep.el-dialog__footer {
     display: flex;
     justify-content: center;
   }
@@ -201,7 +201,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/styles/mixin.scss";
-/deep/.el-dialog{
+::v-deep.el-dialog{
   @include s-dialog;
   margin-top: 15vh !important;
   height: 600px;

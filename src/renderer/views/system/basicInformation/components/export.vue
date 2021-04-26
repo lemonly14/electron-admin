@@ -42,7 +42,7 @@ export default {
 <style lang="scss" scoped>
 @import "@/styles/mixin.scss";
 .delete-dialog{
-  /deep/.el-dialog {
+  ::v-deep.el-dialog {
   @include s-dialog;
   .small-thing {
     @include small-thing;

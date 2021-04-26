@@ -232,7 +232,7 @@ export default {
       .el-select {
         width: -webkit-fill-available;
       }
-      /deep/.el-input__inner {
+      ::v-deep.el-input__inner {
         border-radius: 3px 0px 0px 3px;
       }
       .el-button {

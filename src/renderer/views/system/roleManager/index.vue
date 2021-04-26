@@ -250,7 +250,7 @@ export default {
 .role-manager-container {
   .el-input {
     width: 200px;
-    /deep/.el-input__inner {
+    ::v-deep.el-input__inner {
       border-radius: 20px;
     }
   }

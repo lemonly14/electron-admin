@@ -160,7 +160,7 @@ export default {
 //@import url(); 引入公共css类
 @import "@/styles/mixin.scss";
 .simple-collection {
-  /deep/.el-dialog {
+  ::v-deep.el-dialog {
     @include s-dialog;
     margin-top: 5vh !important;
     .el-dialog__body {

@@ -263,32 +263,32 @@ export default {
 //@import url(); 引入公共css类
 @import "@/styles/mixin.scss";
 .jewelry-sale {
-  /deep/.el-dialog {
+  ::v-deep.el-dialog {
     @include xl-dialog;
   }
-  /deep/.el-form-item {
+  ::v-deep.el-form-item {
     min-width: 200px;
     display: inline-flex;
     margin-bottom: 0;
-    /deep/.el-form-item__content {
+    ::v-deep.el-form-item__content {
       width: 135px;
     }
   }
-  /depp/.el-form-item__label {
+  ::v-deep.el-form-item__label {
     white-space: nowrap;
   }
   .el-input-number--medium {
     width: 130px;
   }
-  /deep/.el-textarea__inner {
+  ::v-deep.el-textarea__inner {
     height: 36px !important;
     width: fit-content;
   }
-  /deep/.el-dialog__body {
+  ::v-deep.el-dialog__body {
     height: 80vh !important;
     overflow: auto !important;
   }
-  /deep/.el-form-item__label {
+  ::v-deep.el-form-item__label {
     width: 100px;
   }
 }

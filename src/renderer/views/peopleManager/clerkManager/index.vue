@@ -305,7 +305,7 @@ export default {
 .clerk-manager-container {
   .el-input {
     width: 200px;
-    /deep/.el-input__inner {
+    ::v-deep.el-input__inner {
       border-radius: 20px;
     }
   }
@@ -315,7 +315,7 @@ export default {
     padding: 10px 20px;
   }
   .table-body {
-    .el-table /deep/.cell {
+    .el-table ::v-deep.cell {
       display: flex;
       flex-flow: wrap;
       justify-content: space-evenly;
