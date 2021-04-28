@@ -1,6 +1,6 @@
 const basicGather = [
   {
-    label: '收货店铺：',
+    label: '收货店铺',
     prop: 'shop',
     placeholder: '',
     type: 'select',
@@ -8,7 +8,7 @@ const basicGather = [
     default: ''
   },
   {
-    label: '收货仓库：',
+    label: '收货仓库',
     prop: 'store',
     placeholder: '',
     type: 'select',
@@ -16,7 +16,7 @@ const basicGather = [
     default: ''
   },
   {
-    label: '供应商名称：',
+    label: '供应商名称',
     prop: 'supplier',
     placeholder: '',
     type: 'select',
@@ -24,22 +24,22 @@ const basicGather = [
     default: ''
   },
   {
-    label: '采购日期：',
-    prop: 'date',
+    label: '采购日期',
+    prop: 'datePicker',
     placeholder: '',
     type: 'datePicker',
-    options: 'suppliers',
+    options: '',
     default: ''
   },
   {
-    label: '编码：',
+    label: '编码',
     prop: 'id',
     placeholder: '自动生成',
     type: 'input',
     default: ''
   },
   {
-    label: '类别：',
+    label: '类别',
     prop: 'style',
     placeholder: '',
     type: 'select',
@@ -47,7 +47,7 @@ const basicGather = [
     default: ''
   },
   {
-    label: '款式：',
+    label: '款式',
     prop: 'fashion',
     placeholder: '',
     options: 'styles',
@@ -55,7 +55,7 @@ const basicGather = [
     default: ''
   },
   {
-    label: '成色：',
+    label: '成色',
     prop: 'fineness',
     placeholder: '',
     type: 'select',
@@ -63,7 +63,7 @@ const basicGather = [
     default: ''
   },
   {
-    label: '单位：',
+    label: '单位',
     prop: 'unit',
     placeholder: '',
     type: 'select',
@@ -71,7 +71,7 @@ const basicGather = [
     default: '克'
   },
   {
-    label: '款号：',
+    label: '款号',
     prop: 'styleNum',
     placeholder: '',
     type: 'input',
@@ -79,7 +79,7 @@ const basicGather = [
   },
 
   {
-    label: '品牌：',
+    label: '品牌',
     prop: 'brand',
     placeholder: '',
     type: 'select',
@@ -87,7 +87,7 @@ const basicGather = [
     default: ''
   },
   {
-    label: '圈号：',
+    label: '圈号',
     prop: 'size',
     placeholder: '',
     type: 'input',
@@ -95,14 +95,14 @@ const basicGather = [
   },
 
   {
-    label: '证书号：',
+    label: '证书号',
     prop: 'certificateNumber',
     placeholder: '',
     type: 'input',
     default: ''
   },
   {
-    label: '手寸：',
+    label: '手寸',
     prop: 'handSize',
     placeholder: '',
     type: 'select',
@@ -111,28 +111,28 @@ const basicGather = [
   },
 
   {
-    label: '产地：',
+    label: '产地',
     prop: 'place',
     placeholder: '',
     type: 'input',
     default: ''
   },
   {
-    label: '备注：',
+    label: '备注',
     prop: 'remark',
     placeholder: '',
     type: 'input',
     default: ''
   },
   {
-    label: '品名：',
+    label: '品名',
     prop: 'product',
     placeholder: '',
     type: 'input',
     default: ''
   },
   {
-    label: '颜色：',
+    label: '颜色',
     prop: 'color',
     placeholder: '',
     type: 'input',
@@ -142,14 +142,14 @@ const basicGather = [
 
 const measureGather = [
   {
-    label: '金重(g)：',
+    label: '金重(g)',
     prop: 'weight',
     placeholder: '',
     type: 'inputNumber',
     default: 1
   },
   {
-    label: '工费：',
+    label: '工费',
     prop: 'fee',
     placeholder: '',
     type: 'inputNumber',
@@ -345,14 +345,14 @@ const stoneInfos = [
 
 const wholeGather = [
   {
-    label: '件重：',
+    label: '件重',
     prop: 'pieceWeight',
     placeholder: '',
     type: 'inputNumber',
     default: 1
   },
   {
-    label: '成本单价：',
+    label: '成本单价',
     prop: 'unitCost',
     placeholder: '',
     type: 'inputNumber',
@@ -366,21 +366,21 @@ const wholeGather = [
     default: 1
   },
   {
-    label: '总成本：',
+    label: '总成本',
     prop: 'totalCost',
     placeholder: '',
     type: 'input',
     default: 1
   },
   {
-    label: '标价系数：',
+    label: '标价系数',
     prop: 'priceRatio',
     placeholder: '',
     type: 'inputNumber',
     default: 1
   },
   {
-    label: '标签价：',
+    label: '标签价',
     prop: 'labelPrice',
     placeholder: '',
     type: 'inputNumber',
@@ -425,4 +425,70 @@ const chargingTypes = [
   }
 ]
 
-export { basicGather, units, styles, chargingTypes, measureGather, shortMeasureGather, labelGather, stoneInfos, wholeGather }
+const paramGather = [
+  {
+    label: '收货店铺',
+    prop: 'shop',
+    placeholder: '收货店铺',
+    type: 'select',
+    options: 'shops ',
+    default: ''
+  },
+  {
+    label: '收货仓库',
+    prop: 'store',
+    placeholder: '收货仓库',
+    type: 'select',
+    options: 'stores',
+    default: ''
+  },
+  {
+    label: '编码',
+    prop: 'id',
+    placeholder: '编码',
+    type: 'input',
+    default: ''
+  },
+  {
+    label: '类别',
+    prop: 'style',
+    placeholder: '类别',
+    type: 'select',
+    options: 'styles',
+    default: ''
+  },
+  {
+    label: '款式',
+    prop: 'fashion',
+    placeholder: '款式',
+    options: 'fashions',
+    type: 'select',
+    default: ''
+  },
+  {
+    label: '入库类型',
+    prop: 'inType',
+    placeholder: '入库类型',
+    options: 'inTypes',
+    type: 'select',
+    default: ''
+  },
+  {
+    label: '成色',
+    prop: 'fineness',
+    placeholder: '成色',
+    type: 'select',
+    options: 'finenesses',
+    default: ''
+  },
+  {
+    label: '主石',
+    prop: 'mainStone',
+    placeholder: '主石',
+    type: 'select',
+    options: 'stones',
+    default: 1
+  }
+]
+
+export { basicGather, units, styles, chargingTypes, measureGather, shortMeasureGather, labelGather, stoneInfos, wholeGather, paramGather }

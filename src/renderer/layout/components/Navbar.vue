@@ -32,7 +32,8 @@
         <div class="avatar-wrapper">
           <img :src="avatar+'?imageView2/1/w/80/h/80'"
                class="user-avatar">
-          <i class="el-icon-caret-bottom" />
+          <i class="el-icon-caret-bottom"
+             style="-webkit-app-region: no-drag;" />
         </div>
         <el-dropdown-menu slot="dropdown">
           <router-link to="/profile/index">
@@ -105,9 +106,9 @@ export default {
   overflow: hidden;
   position: relative;
   background: #fff;
-  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
 
   .hamburger-container {
+    -webkit-app-region: no-drag;
     line-height: 46px;
     height: 100%;
     float: left;
@@ -121,6 +122,7 @@ export default {
   }
 
   .breadcrumb-container {
+    -webkit-app-region: no-drag;
     float: left;
   }
 
@@ -162,10 +164,12 @@ export default {
       margin-right: 30px;
 
       .avatar-wrapper {
+        -webkit-app-region: no-drag;
         margin-top: 5px;
         position: relative;
 
         .user-avatar {
+          -webkit-app-region: no-drag;
           cursor: pointer;
           width: 40px;
           height: 40px;

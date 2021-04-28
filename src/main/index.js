@@ -1,13 +1,13 @@
 'use strict'
 
-import { app, BrowserWindow, ipcMain } from 'electron'
+import { app, BrowserWindow, ipcMain, globalShortcut } from 'electron'
 const fs = require('fs')
 //  const os = require('os')
 const path = require('path')
 
 // 主进程
 
-// 创建子窗口
+// 创建打印预览子窗口
 let printWindow
 function createPrintWindow(arg) {
   printWindow = new BrowserWindow({
@@ -16,12 +16,14 @@ function createPrintWindow(arg) {
     width: 600,
     height: 600,
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      webSecurity: false
     }
   })
 
-  // printWindow.loadURL(`file://C:\\Users\\86188\\Desktop\\electron-vue-element-admin\\static\\print.html`)
-  printWindow.loadFile(`../../static/print.html`)
+  process.env.NODE_ENV === 'development' ? printWindow.loadFile(`../../static/print.html`) : printWindow.loadURL(`file://${__dirname}/static/print.html`)
+
+  printWindow.webContents.openDevTools()
   setTimeout(() => {
     initPrintEvent(printWindow, mainWindow, arg)
   }, 1000)
@@ -33,7 +35,6 @@ function initPrintEvent(printWindow, mainWindow, arg) {
   printWindow.webContents.send('webcontent-print-render', { html: arg })
   ipcMain.on('webcontent-print-do', async(event, arg) => {
     const currentWin = BrowserWindow.fromWebContents(event.sender)
-    console.log('进来了吗', currentWin.webContents)
     // let currentWin = BrowserWindow.getFocusedWindow()()
     const data = await currentWin.webContents.printToPDF({})
 
@@ -42,7 +43,6 @@ function initPrintEvent(printWindow, mainWindow, arg) {
     console.log('filePath', filePath)
     fs.writeFile(filePath, data, error => {
       if (error) throw error
-      console.log('保存成功')
     })
     printWindow.webContents.print({
       silent: false,
@@ -54,7 +54,6 @@ function initPrintEvent(printWindow, mainWindow, arg) {
   })
   // mainWindow.webContents.send("webcontent-print-render",  {html:arg})
   ipcMain.on('print-start', (event, obj) => {
-    console.log('print-start')
     printWindow.webContents.send('print-edit', obj)
   })
   // 获得打印机列表
@@ -130,6 +129,52 @@ ipcMain.on('print-to-pdf', (event, arg) => {
   // })
 })
 
+// 监听登录成功
+ipcMain.on('logined-message', (event, arg) => {
+  mainWindow.setResizable(true)
+  mainWindow.setMinimumSize(1000, 800)
+  mainWindow.setMaximumSize(3840, 2160)
+  mainWindow.setSize(1300, 900)
+  mainWindow.center()
+  event.returnValue = 'received'
+})
+
+// 监听登出成功
+ipcMain.on('loginout-message', (event, arg) => {
+  mainWindow.setMinimumSize(750, 470)
+  mainWindow.setMaximumSize(750, 470)
+  mainWindow.setSize(750, 470)
+  mainWindow.setResizable(false)
+  mainWindow.center()
+  event.returnValue = 'received'
+})
+
+// 监听最小化
+ipcMain.on('handle-min', (event, arg) => {
+  mainWindow.minimize()
+  event.returnValue = 'minimize'
+})
+
+// 监听最大化
+ipcMain.on('handle-max', (event, arg) => {
+  mainWindow.maximize()
+  event.sender.send('max-reply', mainWindow.isMaximized())
+  event.returnValue = 'maximize'
+})
+
+// 监听取消最大化
+ipcMain.on('handle-unmax', (event, arg) => {
+  mainWindow.unmaximize()
+  event.sender.send('max-reply', mainWindow.isMaximized())
+  event.returnValue = 'unmaximize'
+})
+
+// 监听取消最大化
+ipcMain.on('handle-close', (event, arg) => {
+  mainWindow.close()
+  event.returnValue = 'close'
+})
+
 /**
  * Set `__static` path to static files in production
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-static-assets.html
@@ -149,25 +194,41 @@ function createWindow() {
    */
   app.allowRendererProcessReuse = true
   mainWindow = new BrowserWindow({
-    height: 563,
+    width: 750,
+    height: 470,
+    fullscreenable: true,
+    maximizable: false,
     useContentSize: true,
-    width: 1000,
-    // frame:false,
+    // show: false,
+    // transparent: true,
+    // resizable: false, // 可否缩放
+
+    movable: true, // 可否移动
+    frame: false, // 隐藏设置栏
+    titleBarStyle: 'hidden', // 隐藏标题栏
     webPreferences: {
       nodeIntegration: true,
       webSecurity: false
     }
   })
-
-  mainWindow.maximize()
   mainWindow.loadURL(winURL)
-
+  mainWindow.webContents.openDevTools()
   mainWindow.on('closed', () => {
     mainWindow = null
   })
+  mainWindow.on('unmaximize', () => {
+    mainWindow.webContents.send('max-reply', mainWindow.isMaximized())
+  })
+  globalShortcut.register('ESC', () => {
+    mainWindow.unmaximize()
+    mainWindow.webContents.send('max-reply', mainWindow.isMaximized())
+  })
 }
 
-app.on('ready', createWindow)
+app.on('ready', () => {
+  createWindow()
+}
+)
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
